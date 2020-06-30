@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Keys</title>
+    <script type="text/javascript" src="/static/css/layui-v2.4.5/layui/layui.all.js"></script>
+    <script src="/static/js/ajax.js"></script>
+    <link href="/static/css/layui-v2.4.5/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+<style>
+	.dir {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.dir li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;;
+    text-decoration: none;
+}
+.active{
+    background-color: #111;
+}
+		.container{
+			padding: 10px;
+		}
+		.bg{
+			padding: 20px;
+			background: rgb(223,240,216);
+			border-radius: 5px;
+			border:1px solid #e3e3e3;
+			width: 1140px;
+			height: 170px;
+		}
+		.col{
+			overflow: hidden;
+			padding: 10px 0;
+		}
+		.col label{
+			float: left;
+			width: 110px;
+			height: 30px;
+			line-height: 30px;
+			font-weight: bolder;
+			margin-left: 55px;
+		}
+		form div span{
+			padding: 9px 12px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px
+		}
+		form div input{
+			width: 910px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+		form div textarea{
+			width: 910px;
+			height: 215px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			overflow: hidden;
+		}
+		.btn{
+			width: 60px;
+			height: 34px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+		}
+		.cell{
+			
+			margin-left: 350px;
+		}
+		.h1class{
+			font-size: 30px;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: normal;
+        	margin-top: 130px;
+        	margin-left: 350px;
+    }
+</style>
+	
+</head>
+<body>
+	<ul class="dir"> 
+		   <li><a href="Blockchainsign.html">Blockchain</a></li>
+		   <li><a href="transaction.html">Transaction</a></li>
+		   <li><a href="signature.html">Signatures</a></li>
+		   <li><a class="active" href="keys.html">Keys</a></li>
+		   <li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 
+	</ul>
+	<div class="container" id="vuemain">
+		<div>
+			<h1 class="h1class">Public / Private Key Pairs</h1>
+		</div>
+		
+
+		<!-- 第一个cell -->
+		<div class="cell">
+			<div class="bg">
+				<form>
+
+					<div  class="col">
+						<label style="float: left;">Private Key:</label>
+						<div style="float: left;">
+							<input type="text" id="pri">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Public Key:</label>
+						<div style="float: left;">
+							<input type="text" readonly style="background-color: #eee;" id="pub">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Random" id="rand" >
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload=function(){
+			getkeys()
+		}
+		function getkeys(){
+			var Req={
+				Reqnum:0
+			}
+			ajaxpost('/keys',Req,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("pri").value=data.prikey;
+				document.getElementById("pub").value=data.pubkey;
+			})
+		}
+		document.getElementById("rand").addEventListener("click",function(){
+			var Req={
+				Reqnum:1
+			}
+			ajaxpost('/keys',Req,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("pri").value=data.prikey;
+				document.getElementById("pub").value=data.pubkey;
+			})
+		})
+		
+	</script>
+</body>
+</html>

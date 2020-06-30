@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>signature</title>
+    <script type="text/javascript" src="/static/css/layui-v2.4.5/layui/layui.all.js"></script>
+    <script src="/static/js/ajax.js"></script>
+    <link href="/static/css/layui-v2.4.5/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <head>    
+        <style>
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.dir {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 47px;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #383838;
+}
+ul{
+    list-style-type:none; 
+    margin:0px; 
+    padding:0px 10px; 
+}
+.dir li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;;
+    text-decoration: none;
+    /* font-family: "Times New Roman", Times, serif; */
+    
+}
+.active{
+    background-color: #111;
+}
+    .h1class{
+        margin-top: 130px;
+        margin-left: 350px;
+    }
+    .container{
+        padding: 10px;
+        width: 650px;
+        /* margin:0px auto; */
+    }
+    div span{
+			padding: 9px 12px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            float: left;
+		}
+    div input{
+			width: 280px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            float: left;
+           
+        }
+    .labsty{
+            /* margin-top: 10px;
+            margin-bottom: 10px; */
+            margin-top:5px;
+            font-size: 15px;
+            text-align: center;
+    }
+    .btn{
+            margin: 0px;
+            padding: 0px;
+            height: 34px;
+            width: 980px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+        }
+    .area{
+            margin-top: 10px;
+            height:100px;
+            width: 978px;
+    }
+    .colorlightblue{
+        background-color:lightblue;
+    }
+    .colorlightred{
+        background-color:rgb(248, 206, 212);
+    }
+        </style>
+
+    </head>
+</head>
+<body>
+        <div class="dir">
+            <ul > 
+                        <li><a href="Blockchainsign.html">Blockchain</a></li>
+                        <li><a href="transaction.html">Transaction</a></li>
+                        <li><a class="active" href="signature.html">Signatures</a></li>
+                        <li><a href="keys.html">Keys</a></li>	
+                        <li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 	
+            </ul>
+        </div>
+        <div class="container" >
+                <h1 class="h1class">Signatures</h1>
+                <div class="layui-tab layui-tab-card" style="width:1000px;height:350px;margin-top:25px;margin-left:350px;">
+                    
+                    <ul class="layui-tab-title" style="margin-bottom:0px;">
+                        <li class="layui-this">Sign</li>
+                        <li>Verify</li>
+                    </ul>
+                <div class="layui-tab-content" style="height: 355px;  margin:0px; padding: 0px;">
+                    <div class="layui-tab-item layui-show" style="margin-top:0px;">
+                        <div>
+                            <label class="labsty">Message</label> 
+                        </div>
+                                                      
+                        <div>
+                            <textarea class="area" id="textarea_01">
+
+                            </textarea>
+                        </div>
+                        <div>
+                            <label class="labsty">Private Key</label>
+                        </div>
+                        
+                        <div>
+                            <input style=" width: 980px;margin-top: 10px;" id="pri_text">
+                        </div>
+                        <div>
+                            <button class="btn" style="margin-top:8px;" id="btn_sign">sign</button>                            
+                        </div>
+                        <div>
+                            <label class="labsty">Message Signature</label>
+                        </div>
+                        <div>
+                            <input style=" width: 980px; margin-top: 10px; background-color: lightgray;" readonly id="get_sign">
+                        </div>               
+                    </div>   
+                    <div class="layui-tab-item" style="height: 310px; margin-top:0px;" id="div2">                           
+                            <div>
+                                    <label class="labsty">Message</label> 
+                            </div>
+                                                          
+                            <div>
+                                <textarea class="area" id="textarea_02">
+    
+                                </textarea>
+                            </div>
+                            <div style="margin:0px;padding: 0px; height:10px;">
+                                    <label class="labsty">Public Key</label>
+                            </div>
+                            
+                            <div>
+                                <input style=" width: 980px;margin-top: 10px;  margin-bottom: 2px;" id="pub_text">
+                            </div>
+                            <div>
+                                    <label class="labsty">Signature</label>
+                            </div>
+                            <div>
+                                    <input style=" width: 980px; margin-top: 10px;" id="textsign">
+                            </div>
+                            <div>
+                                    <button class="btn" style="margin-top:8px;" id="verify">verify</button>                            
+                            </div>           
+                    </div>
+                </div>
+                </div>
+            </div>
+    <script>
+        window.onload=function(){
+            //Todo getprikey
+            getkey()
+            }
+            //--------------------------------------------
+			function getkey(){      
+                var req={
+                    Reqid:0
+                }                     
+                ajaxpost('/signature',req,function(jsonvalue){
+                    var data = eval('(' + jsonvalue + ')');
+                    document.getElementById("pri_text").value=data.prikey;
+                    document.getElementById("pub_text").value=data.pubkey;
+                    //this.pubkey=data.pubkey;
+                })
+            }			
+            function postmydata(){
+				var text = document.getElementById('textarea_01').value
+                //Todo post data
+                var req={
+                        Reqid:1,
+                        Message:text                        
+                    }
+                    ajaxpost('/signature',req,function(jsonvalue){
+                    var data = eval('(' + jsonvalue + ')');
+                    document.getElementById("get_sign").value=data.megsign
+                    document.getElementById("textsign").value=data.megsign
+                })
+            }
+            function verifymsg(){
+                var text=document.getElementById('textarea_02').value
+                var puk=document.getElementById("pub_text").value
+                var sign=document.getElementById("textsign").value
+                var req={
+                    Reqid:2,
+                    Message:text,
+                    Puk:puk,
+                    Signature:sign
+                }
+                ajaxpost('/signature',req,function(jsonvalue){
+                    var data = eval('(' + jsonvalue + ')');
+                    var res=data.result
+                    if(res == true){
+                        document.getElementById("div2").style.backgroundColor="rgb(223,240,216)"
+                    }
+                    else{
+                        document.getElementById("div2").style.backgroundColor="rgb(248, 206, 212)";
+                    }
+                })
+            }
+            document.getElementById("btn_sign").addEventListener("click",postmydata);
+            document.getElementById("textarea_01").addEventListener("input",function(){                
+                var text=document.getElementById("textarea_01").value
+                document.getElementById("textarea_02").value=text
+            })
+            document.getElementById("textarea_02").addEventListener("input",function(){                
+                var text=document.getElementById("textarea_02").value
+                document.getElementById("textarea_01").value=text
+                document.getElementById("div2").style.backgroundColor="white"
+            })
+            document.getElementById("verify").addEventListener("click",verifymsg)
+		</script>
+</body>
+</html>

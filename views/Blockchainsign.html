@@ -1,0 +1,3227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>signature</title>
+    <script type="text/javascript" src="/static/css/layui-v2.4.5/layui/layui.all.js"></script>
+    <script src="/static/js/ajax.js"></script>
+    <script src="/static/js/sha256.js"></script>
+    <link href="/static/css/layui-v2.4.5/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <head>    
+        <style>
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.dir {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 47px;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #383838;
+    position: fixed;
+}
+ul{
+    list-style-type:none; 
+    margin:0px; 
+    padding:0px 10px; 
+}
+.dir li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;;
+    text-decoration: none;
+    /* font-family: "Times New Roman", Times, serif; */
+    
+}
+.active{
+    background-color: #111;
+}
+    .cell{
+            float: left;
+            margin-left: 20px;
+    }
+    .bg{
+            padding: 20px;
+            background: rgb(223,240,216);
+            border-radius: 5px;
+            border:1px solid #e3e3e3;
+            width: 620px;
+            height: 820px;
+    }
+    .h1class{
+        margin: 35px 0px;
+        font-weight:500;
+        font-size: 2.5rem;
+    }
+    .h3class{
+        font-size: 1.75rem;
+        font-weight: normal;
+        margin-top:10px;
+        margin-left: 20px; 
+    }
+    .container{
+        padding: 10px;
+        width: 180%;
+        height: auto;
+    }
+        form div span{
+            height: 35px;
+            padding: 6px 12px;
+            padding-bottom: 7px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px
+        }
+        form div input{
+            width: 580px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px
+        }
+        .btn{
+            width: 57px;
+            height: 34px;
+            color: white;
+            background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+            border-radius: 4px;
+        }
+
+    .labsty{
+            margin-top:5px;
+            font-size: 15px;
+            text-align: center;
+    }
+    .area{
+            margin-top: 10px;
+            height:100px;
+            width: 978px;
+    }
+    .colorlightred{
+        background-color:rgb(248, 206, 212);
+    }
+    .divmar{
+        padding:0px;
+        margin: 10px 10px;
+    }
+        </style>
+    </head>
+</head>
+<body>
+        <div class="dir">
+            <ul > 
+                <li><a class="active" href="Blockchainsign.html">Blockchain</a></li>
+                <li><a href="transaction.html">Transaction</a></li>
+                <li><a href="signature.html">Signatures</a></li>
+                <li><a href="keys.html">Keys</a></li>
+                <li style="float: left;"><a href="chaindemo">Blockchain Demo:Public/Private Keys&Signing</a></li>      
+            </ul>
+        </div>
+        <div class="container">   
+                         
+        <h1 class="h1class">Blockchain</h1>
+        <h3 class="h3class">Peer A</h3>
+        <div style="height: 870px;">
+        <!-- first cell -->
+        <div class="cell">
+            <div class="bg" style="height: 500px;" id="div_a1">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="1" id="div_a1_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="16119" id="div_a1_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a1_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a1_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div> 
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000000000000000000000000000000000000000000000000000000000000000" id="div_a1_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a1_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a1_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- second cell -->
+        <div class="cell">
+            <div class="bg" id="div_a2">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="2" id="div_a2_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="25205" id="div_a2_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a2_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a2_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <!-- data1 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" id="div_a2_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a2_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" id="div_a2_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a2_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a2_sig1">
+                            </div>                            
+                            <div>
+                            <br>                            
+                            </div>
+                            <!-- data2 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" id="div_a2_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a2_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04997ac426a5c3c0ec9b51732435f90ebb4cf06aca4bfdb778865af0110f3931660d8b85297d59382c81eb6c7ae7c100af55800f15dad1fc72122139ba02e5d740" id="div_a2_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a2_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a2_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data3 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" id="div_a2_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a2_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" id="div_a2_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a2_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a2_sig3">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data4 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" id="div_a2_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a2_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" id="div_a2_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a2_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a2_sig4">
+                            </div>
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a2_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a2_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a2_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- third cell -->
+        <div class="cell">
+            <div class="bg" id="div_a3">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="3" id="div_a3_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="29164" id="div_a3_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a3_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a3_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a3_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a3_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a3_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a3_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="30450220485a5a1c317d5a1b33af90201999909b49e09dc5f0b261048bbee1d09ed1735f02210081eb6d39ab4db5d9f95ec5b103b7a6268bc936c738cb05293e167220fbc3b71e" id="div_a3_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" id="div_a3_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a3_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a3_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a3_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022002cc3c61bb7cd4573b192d1b61f125545ebc84c5b47dd9ea096b896bf9b335a702204c3252e5f27c8732d4ce52f58efb3493fa733200aba01270f779a3b7fed2e53c" 
+                                id="div_a3_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" 
+                            id="div_a3_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a3_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a3_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a3_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100ee33bb3764f5f85f694d1033a66131bc818c188dba4e6392e89c03c06537885202201d92064c5e8804df8864baa30ccbcaca45caac345686768125d0c9a10fad94f4" 
+                                id="div_a3_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a3_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a3_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a3_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- forth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a4">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="4" id="div_a4_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="51263" id="div_a4_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a4_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a4_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a4_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a4_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a4_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a4_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30450221009231b78416d222dd7e73e42b5bd7613b89ad4d093f33ba799d0867304861e5100220028b3ffe5a80bab482c31464fb0db1609f674f8f03e8a137e15593bdc97e7725" 
+                                id="div_a4_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" 
+                            id="div_a4_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a4_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a4_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a4_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30460221008060d62c9e36fb464b792e4d3b9a08783877259cc56ea87b20d798d0f3f450b202210083d082cc7222d5834f4b71be9b23ee6943f44bda5ef549c698e382b800c59bec" 
+                                id="div_a4_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="8.00" 
+                            id="div_a4_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" 
+                            id="div_a4_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a4_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a4_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022013a30405cc52560bcfa5348955303bad54e235f1504d65e356403f41e60867d50220539fc0bcd0ec869f08ed10987188f3333c9d7050af7ac5cf239c3cab38a4e46f" 
+                                id="div_a4_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a4_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a4_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a4_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- fifth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a5">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="5" id="div_a5_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="172517" id="div_a5_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" 
+                                id="div_a5_coin1"><span style="width:30px">-></span><input 
+                                value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd"  style="width:250px;" 
+                                id="div_a5_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a5_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a5_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a5_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="2" 
+                                id="div_a5_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304502203b00e4d2c7d85dc96a3ede37c287237ba8a6a857defcc285ac2daff92109e75f022100ace660bb266104fd111e7d9ea7ee6a629dc45dfed4ce97b0fe7475e0968ff7d0" 
+                                id="div_a5_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="6.00" 
+                            id="div_a5_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a5_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="043e17e5095e878b0fbf63f4c7de037ed0e098d13ac7b8891c5d7238edc9dea474ce7df69a643edf2cccb7b9cf71701e1825e5ceb840764efb3fc7b6e7f433be41" 
+                            id="div_a5_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a5_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="304502207765bb9ac24975ff9b4194b95b7ce87b1a7435f983d839efa2b2c5e5aa258b02022100ccc33565490a7cdc738c6e75451eadb53b66dd72f3ce67d13cd3dd905265269b" 
+                                id="div_a5_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="4.00" 
+                                id="div_a5_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                                value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                                id="div_a5_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                                value="04020d6fe7aeabd3a00d725f542c35d8b345fe1c884f3af420987ca51c73580e4b4c42f9838f254d142d7024f556d167ce2d0ddf7e9576ebd9136368542f8ac5a2" 
+                                id="div_a5_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a5_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304602210090ca7d92de041fd0e7fd7b4638ca1ee85a25e0bdaa3deff87a32eac7f1a0f6e9022100a3fd097026ce01eb105c969d0a460475e655845dd3973ee9f69ca9c2e4f05483" 
+                                id="div_a5_sig3">
+                            </div>   
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="9.95" 
+                            id="div_a5_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a5_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04148850d1edbd665a7a797c69f8015aa84e92f84f68285cc561397d4120c6e6a0f331e6a40bf9e4066ca1719666d201585564d4e11449e22cec9c6eec3d20bfbf" 
+                            id="div_a5_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a5_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100d980efbdcc9efc5e54ca5ed5a300df6cb103da49ac7ac88ccfce333adb8c33a402201469bb5a211fb9b4ae845accc0fb9f3fd75ea68ce41a1cb37cecb318df357a57" 
+                                id="div_a5_sig4">
+                            </div>                    
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a5_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00004b0fe497e89f616f203f4bb80985a510fc916d01b3e4d5d76c4761112419" id="div_a5_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a5_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        <h3 class="h3class">Peer B</h3>
+        <div style="height: 870px;">
+        <!-- first cell -->
+        <div class="cell">
+            <div class="bg" style="height: 500px;" id="div_a6">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="1" id="div_a6_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="16119" id="div_a6_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" 
+                                id="div_a6_coin1"><span style="width:30px">-></span><input 
+                                value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" 
+                                id="div_a6_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div> 
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000000000000000000000000000000000000000000000000000000000000000" id="div_a6_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a6_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a6_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- second cell -->
+        <div class="cell">
+            <div class="bg" id="div_a7">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="2" id="div_a7_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="25205" id="div_a7_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" 
+                                id="div_a7_coin1"><span style="width:30px">-></span><input 
+                                value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" 
+                                id="div_a7_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <!-- data1 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a7_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a7_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" 
+                            id="div_a7_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a7_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" 
+                                id="div_a7_sig1">
+                            </div>                            
+                            <div>
+                            <br>                            
+                            </div>
+                            <!-- data2 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" 
+                            id="div_a7_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a7_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04997ac426a5c3c0ec9b51732435f90ebb4cf06aca4bfdb778865af0110f3931660d8b85297d59382c81eb6c7ae7c100af55800f15dad1fc72122139ba02e5d740" 
+                            id="div_a7_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a7_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" 
+                                id="div_a7_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data3 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a7_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;"
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a7_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a7_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a7_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" 
+                                id="div_a7_sig3">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data4 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a7_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a7_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" id="div_a7_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a7_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a7_sig4">
+                            </div>
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a7_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a7_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a7_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- third cell -->
+        <div class="cell">
+            <div class="bg" id="div_a8">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="3" id="div_a8_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="29164" id="div_a8_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a8_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a8_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a8_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a8_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a8_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a8_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="30450220485a5a1c317d5a1b33af90201999909b49e09dc5f0b261048bbee1d09ed1735f02210081eb6d39ab4db5d9f95ec5b103b7a6268bc936c738cb05293e167220fbc3b71e" id="div_a8_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" id="div_a8_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a8_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a8_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a8_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022002cc3c61bb7cd4573b192d1b61f125545ebc84c5b47dd9ea096b896bf9b335a702204c3252e5f27c8732d4ce52f58efb3493fa733200aba01270f779a3b7fed2e53c" 
+                                id="div_a8_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" 
+                            id="div_a8_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a8_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a8_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a8_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100ee33bb3764f5f85f694d1033a66131bc818c188dba4e6392e89c03c06537885202201d92064c5e8804df8864baa30ccbcaca45caac345686768125d0c9a10fad94f4" 
+                                id="div_a8_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a8_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a8_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a8_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- forth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a9">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="4" id="div_a9_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="51263" id="div_a9_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a9_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a9_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a9_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a9_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a9_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a9_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30450221009231b78416d222dd7e73e42b5bd7613b89ad4d093f33ba799d0867304861e5100220028b3ffe5a80bab482c31464fb0db1609f674f8f03e8a137e15593bdc97e7725" 
+                                id="div_a9_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" 
+                            id="div_a9_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a9_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a9_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a9_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30460221008060d62c9e36fb464b792e4d3b9a08783877259cc56ea87b20d798d0f3f450b202210083d082cc7222d5834f4b71be9b23ee6943f44bda5ef549c698e382b800c59bec" 
+                                id="div_a9_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="8.00" 
+                            id="div_a9_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" 
+                            id="div_a9_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a9_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a9_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022013a30405cc52560bcfa5348955303bad54e235f1504d65e356403f41e60867d50220539fc0bcd0ec869f08ed10987188f3333c9d7050af7ac5cf239c3cab38a4e46f" 
+                                id="div_a9_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a9_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a9_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a9_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- fifth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a10">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="5" id="div_a10_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="172517" id="div_a10_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" 
+                                id="div_a10_coin1"><span style="width:30px">-></span><input 
+                                value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd"  style="width:250px;" 
+                                id="div_a10_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a10_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a10_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a10_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="2" 
+                                id="div_a10_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304502203b00e4d2c7d85dc96a3ede37c287237ba8a6a857defcc285ac2daff92109e75f022100ace660bb266104fd111e7d9ea7ee6a629dc45dfed4ce97b0fe7475e0968ff7d0" 
+                                id="div_a10_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="6.00" 
+                            id="div_a10_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a10_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="043e17e5095e878b0fbf63f4c7de037ed0e098d13ac7b8891c5d7238edc9dea474ce7df69a643edf2cccb7b9cf71701e1825e5ceb840764efb3fc7b6e7f433be41" 
+                            id="div_a10_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a10_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="304502207765bb9ac24975ff9b4194b95b7ce87b1a7435f983d839efa2b2c5e5aa258b02022100ccc33565490a7cdc738c6e75451eadb53b66dd72f3ce67d13cd3dd905265269b" 
+                                id="div_a10_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="4.00" 
+                                id="div_a10_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                                value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                                id="div_a10_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                                value="04020d6fe7aeabd3a00d725f542c35d8b345fe1c884f3af420987ca51c73580e4b4c42f9838f254d142d7024f556d167ce2d0ddf7e9576ebd9136368542f8ac5a2" 
+                                id="div_a10_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a10_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304602210090ca7d92de041fd0e7fd7b4638ca1ee85a25e0bdaa3deff87a32eac7f1a0f6e9022100a3fd097026ce01eb105c969d0a460475e655845dd3973ee9f69ca9c2e4f05483" 
+                                id="div_a10_sig3">
+                            </div>   
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="9.95" 
+                            id="div_a10_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a10_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04148850d1edbd665a7a797c69f8015aa84e92f84f68285cc561397d4120c6e6a0f331e6a40bf9e4066ca1719666d201585564d4e11449e22cec9c6eec3d20bfbf" 
+                            id="div_a10_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a10_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100d980efbdcc9efc5e54ca5ed5a300df6cb103da49ac7ac88ccfce333adb8c33a402201469bb5a211fb9b4ae845accc0fb9f3fd75ea68ce41a1cb37cecb318df357a57" 
+                                id="div_a10_sig4">
+                            </div>                    
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a10_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00004b0fe497e89f616f203f4bb80985a510fc916d01b3e4d5d76c4761112419" id="div_a10_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a10_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>        
+        <h3 class="h3class">Peer C</h3>
+        <div style="height: 870px;">
+        <!-- first cell -->
+        <div class="cell">
+            <div class="bg" style="height: 500px;" id="div_a11">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="1" id="div_a11_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="16119" id="div_a11_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a11_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a11_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div> 
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000000000000000000000000000000000000000000000000000000000000000" id="div_a11_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a11_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a11_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- second cell -->
+        <div class="cell">
+            <div class="bg" id="div_a12">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="2" id="div_a12_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="25205" id="div_a12_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a12_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a12_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <!-- data1 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a12_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a12_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" 
+                            id="div_a12_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a12_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a12_sig1">
+                            </div>                            
+                            <div>
+                            <br>                            
+                            </div>
+                            <!-- data2 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" id="div_a12_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a12_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04997ac426a5c3c0ec9b51732435f90ebb4cf06aca4bfdb778865af0110f3931660d8b85297d59382c81eb6c7ae7c100af55800f15dad1fc72122139ba02e5d740" id="div_a12_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a12_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a12_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data3 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" id="div_a12_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a12_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" id="div_a12_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a12_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a12_sig3">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <!-- data4 -->
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" id="div_a12_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" id="div_a12_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" id="div_a12_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a12_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="3046022100cf33ee8c696edd0b0c291a259e0a03ea2491f8febd396244e309d175bc8b6b7c022100a85b8b15e037ac42d9f2545e568d2433ede51e59f4bbfd4179f285fac1a10f66" id="div_a12_sig4">
+                            </div>
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00006908f507a101e89544498978e9bd2e35462b91d86ef13510685227912e77" id="div_a12_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a12_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a12_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- third cell -->
+        <div class="cell">
+            <div class="bg" id="div_a13">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="3" id="div_a13_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="29164" id="div_a13_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a13_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a13_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="10.00" 
+                            id="div_a13_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a13_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a13_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a13_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="30450220485a5a1c317d5a1b33af90201999909b49e09dc5f0b261048bbee1d09ed1735f02210081eb6d39ab4db5d9f95ec5b103b7a6268bc936c738cb05293e167220fbc3b71e" id="div_a13_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" id="div_a13_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a13_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a13_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" id="div_a13_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022002cc3c61bb7cd4573b192d1b61f125545ebc84c5b47dd9ea096b896bf9b335a702204c3252e5f27c8732d4ce52f58efb3493fa733200aba01270f779a3b7fed2e53c" 
+                                id="div_a13_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="20.00" 
+                            id="div_a13_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310" 
+                            id="div_a13_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a13_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a13_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100ee33bb3764f5f85f694d1033a66131bc818c188dba4e6392e89c03c06537885202201d92064c5e8804df8864baa30ccbcaca45caac345686768125d0c9a10fad94f4" 
+                                id="div_a13_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="00008ccb2fccac084b800a2878d317e14fe88fddb1e91d131d1fc3d523d67125" id="div_a13_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a13_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a13_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- forth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a14">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="4" id="div_a14_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="51263" id="div_a14_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" id="div_a14_coin1"><span style="width:30px">-></span><input value="04fe1be031bc7a54d900ff062911bc4f7ba0edb39e4280268e490b79e347e3b8b0019c252aad7536ef7caeb061d558cac2eaec43ff670d76a521bec77c35751310"  style="width:250px;" id="div_a14_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a14_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a14_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a14_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a14_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30450221009231b78416d222dd7e73e42b5bd7613b89ad4d093f33ba799d0867304861e5100220028b3ffe5a80bab482c31464fb0db1609f674f8f03e8a137e15593bdc97e7725" 
+                                id="div_a14_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="5.00" 
+                            id="div_a14_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="042222d7af343abd780add9dd7a0f554a1d6b127bc6f7ec28c5eef97d25af83028e89011559daa71dfcc7e2175433a1a6ef605715eba07a8a942c7088f8050a714" 
+                            id="div_a14_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="041c377677bb697329b8dbeb5811b026d532730ad90ad7357fd812183ec01b766d7a4ee33c6a85b84d44fa1c3c59377c660f0076c39c563d9a19005a56ee1d1336" 
+                            id="div_a14_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a14_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="30460221008060d62c9e36fb464b792e4d3b9a08783877259cc56ea87b20d798d0f3f450b202210083d082cc7222d5834f4b71be9b23ee6943f44bda5ef549c698e382b800c59bec" 
+                                id="div_a14_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="8.00" 
+                            id="div_a14_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd" 
+                            id="div_a14_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" id="div_a14_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a14_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3044022013a30405cc52560bcfa5348955303bad54e235f1504d65e356403f41e60867d50220539fc0bcd0ec869f08ed10987188f3333c9d7050af7ac5cf239c3cab38a4e46f" 
+                                id="div_a14_sig3">
+                            </div>                   
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="000029942f0286f943ac7e877d7f10c3902aecbb2eebc72a758ab40487b0b8f9" id="div_a14_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a14_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a14_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- fifth cell -->
+        <div class="cell">
+            <div class="bg" id="div_a15">
+                <form>
+                    <div style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Block:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span>#</span><input type="text" style="width: 545px" value="5" id="div_a15_bh">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Nonce:</label>
+                        </div>                       
+                        <div class="divmar">
+                            <input type="text" value="172517" id="div_a15_nonce">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <div>
+                                <span style="width: 30px">$</span><input value="100.00" style="width:250px" 
+                                id="div_a15_coin1"><span style="width:30px">-></span><input 
+                                value="04cc17dc129331c1cbb9c32cf4dc2dde4a5144e26c09b7430685c227176aeed05c74cf9d581da9d872cff53e67a8b28c53dfcf197dc4148e476eff4c3abfb3eebd"  style="width:250px;" 
+                                id="div_a15_coin2">
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label>Tx:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="7.00" 
+                            id="div_a15_money1"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="04d4080959e3795bc74a50fe606c1418a0a2a1c2c16e39f5c4a08b363a9c0611fa732be61f13b3f270cc534d3815dacced5d344b86a9aa302390c3399b5238bce6" 
+                            id="div_a15_f1"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a15_to1">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="2" 
+                                id="div_a15_seq1"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304502203b00e4d2c7d85dc96a3ede37c287237ba8a6a857defcc285ac2daff92109e75f022100ace660bb266104fd111e7d9ea7ee6a629dc45dfed4ce97b0fe7475e0968ff7d0" 
+                                id="div_a15_sig1">
+                            </div>
+                            <div>
+                            <br>                            
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="6.00" 
+                            id="div_a15_money2"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                            id="div_a15_f2"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="043e17e5095e878b0fbf63f4c7de037ed0e098d13ac7b8891c5d7238edc9dea474ce7df69a643edf2cccb7b9cf71701e1825e5ceb840764efb3fc7b6e7f433be41" 
+                            id="div_a15_to2">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a15_seq2"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" value="304502207765bb9ac24975ff9b4194b95b7ce87b1a7435f983d839efa2b2c5e5aa258b02022100ccc33565490a7cdc738c6e75451eadb53b66dd72f3ce67d13cd3dd905265269b" 
+                                id="div_a15_sig2">
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="4.00" 
+                                id="div_a15_money3"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                                value="0451d4a9c44a2dec79ad3e26ab25223b78d9c9e5150cefe53e79f3fefed4f23b36f02cf51a74c2f44916c571560b5e3f555ee1bb339a64ef707825340e3ed37090" 
+                                id="div_a15_f3"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                                value="04020d6fe7aeabd3a00d725f542c35d8b345fe1c884f3af420987ca51c73580e4b4c42f9838f254d142d7024f556d167ce2d0ddf7e9576ebd9136368542f8ac5a2" 
+                                id="div_a15_to3">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a15_seq3"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="304602210090ca7d92de041fd0e7fd7b4638ca1ee85a25e0bdaa3deff87a32eac7f1a0f6e9022100a3fd097026ce01eb105c969d0a460475e655845dd3973ee9f69ca9c2e4f05483" 
+                                id="div_a15_sig3">
+                            </div>   
+                            <div>
+                                <br>
+                            </div>
+                                <span style="width: 30px">$</span><input type="text" style="width: 140px;" value="9.95" 
+                            id="div_a15_money4"><span style="width: 60px;">from</span><input type="text" style="width: 150px;" 
+                            value="040b4c84f02bfec488a8a861267f8221646e1b6f6701504ad39d4ee82248fa7b5152536ea36bf47ee0812186a13311a2c0cfc24f557dfa38b2048139be45d7ac4c" 
+                            id="div_a15_f4"><span style="width: 30px;">-></span><input type="text" style="width: 150px;" 
+                            value="04148850d1edbd665a7a797c69f8015aa84e92f84f68285cc561397d4120c6e6a0f331e6a40bf9e4066ca1719666d201585564d4e11449e22cec9c6eec3d20bfbf" 
+                            id="div_a15_to4">
+                            <div>
+                                <span style="width: 60px;">seq</span><input type="text" style="width: 50px;" value="1" 
+                                id="div_a15_seq4"><span style="width:60px;">Sig</span><input type="text" style="width: 430px;" 
+                                value="3045022100d980efbdcc9efc5e54ca5ed5a300df6cb103da49ac7ac88ccfce333adb8c33a402201469bb5a211fb9b4ae845accc0fb9f3fd75ea68ce41a1cb37cecb318df357a57" 
+                                id="div_a15_sig4">
+                            </div>                    
+                        </div>  
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <label >Prev:</label>
+                        </div>
+                        
+                        <div class="divmar">
+                            <input type="text" readonly 
+                            value="0000f79349c800b2ef5ed40ba485e4abb75158f60f0fe7a962b5bd0fa6ccf1a0" id="div_a15_pre">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div  class="divmar">
+                            <label>Hash:</label>
+                        </div>
+                       
+                        <div class="divmar">
+                            <input style="background-color:#eee" type="text" readonly 
+                            value="00004b0fe497e89f616f203f4bb80985a510fc916d01b3e4d5d76c4761112419" id="div_a15_hash">
+                        </div>
+                    </div>
+
+                    <div  style="margin-top: 10px;">
+                        <div class="divmar">
+                            <input class="btn" type="button" value="Mine" id="div_a15_btn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>  
+        </div>
+        <script>
+            window.onload=function(){
+            document.getElementById("div_a1").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a2").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a3").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a4").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a5").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a6").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a7").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a8").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a9").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a10").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a11").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a12").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a13").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a14").style.backgroundColor="rgb(223,240,216)"
+            document.getElementById("div_a15").style.backgroundColor="rgb(223,240,216)"           
+        }
+    function gettabledata(flag){
+        var data
+        if(flag == 1){
+                    data=document.getElementById("div_a1_coin1").value+document.getElementById("div_a1_coin2").value
+            }
+        if(flag == 2){
+                    data=document.getElementById("div_a2_money1").value+document.getElementById("div_a2_f1").value
+                        +document.getElementById("div_a2_to1").value+document.getElementById("div_a2_seq1").value
+                        +document.getElementById("div_a2_sig1").value
+                        +document.getElementById("div_a2_money2").value+document.getElementById("div_a2_f2").value
+                        +document.getElementById("div_a2_to2").value+document.getElementById("div_a2_seq2").value
+                        +document.getElementById("div_a2_sig2").value
+                        +document.getElementById("div_a2_money3").value+document.getElementById("div_a2_f3").value
+                        +document.getElementById("div_a2_to3").value+document.getElementById("div_a2_seq3").value
+                        +document.getElementById("div_a2_sig3").value
+                        +document.getElementById("div_a2_money4").value+document.getElementById("div_a2_f4").value
+                        +document.getElementById("div_a2_to4").value+document.getElementById("div_a2_seq4").value
+                        +document.getElementById("div_a2_sig4").value
+            }
+        if(flag ==3){
+                    data=document.getElementById("div_a3_money1").value+document.getElementById("div_a3_f1").value
+                        +document.getElementById("div_a3_to1").value+document.getElementById("div_a3_seq1").value
+                        +document.getElementById("div_a3_sig1").value
+                        +document.getElementById("div_a3_money2").value+document.getElementById("div_a3_f2").value
+                        +document.getElementById("div_a3_to2").value+document.getElementById("div_a3_seq2").value
+                        +document.getElementById("div_a3_sig2").value
+                        +document.getElementById("div_a3_money3").value+document.getElementById("div_a3_f3").value
+                        +document.getElementById("div_a3_to3").value+document.getElementById("div_a3_seq3").value
+                        +document.getElementById("div_a3_sig3").value                    
+            }
+        if(flag ==4){
+                    data=document.getElementById("div_a4_money1").value+document.getElementById("div_a4_f1").value
+                        +document.getElementById("div_a4_to1").value+document.getElementById("div_a4_seq1").value
+                        +document.getElementById("div_a4_sig1").value
+                        +document.getElementById("div_a4_money2").value+document.getElementById("div_a4_f2").value
+                        +document.getElementById("div_a4_to2").value+document.getElementById("div_a4_seq2").value
+                        +document.getElementById("div_a4_sig2").value
+                        +document.getElementById("div_a4_money3").value+document.getElementById("div_a4_f3").value
+                        +document.getElementById("div_a4_to3").value+document.getElementById("div_a4_seq3").value
+                        +document.getElementById("div_a4_sig3").value
+            }
+        if(flag ==5){
+                    data=document.getElementById("div_a5_money1").value+document.getElementById("div_a5_f1").value
+                        +document.getElementById("div_a5_to1").value+document.getElementById("div_a5_seq1").value
+                        +document.getElementById("div_a5_sig1").value
+                        +document.getElementById("div_a5_money2").value+document.getElementById("div_a5_f2").value
+                        +document.getElementById("div_a5_to2").value+document.getElementById("div_a5_seq2").value
+                        +document.getElementById("div_a5_sig2").value
+                        +document.getElementById("div_a5_money3").value+document.getElementById("div_a5_f3").value
+                        +document.getElementById("div_a5_to3").value+document.getElementById("div_a5_seq3").value
+                        +document.getElementById("div_a5_sig3").value
+                        +document.getElementById("div_a5_money4").value+document.getElementById("div_a5_f4").value
+                        +document.getElementById("div_a5_to4").value+document.getElementById("div_a5_seq4").value
+                        +document.getElementById("div_a5_sig4").value
+        }
+        if(flag == 6){
+                    data=data=document.getElementById("div_a6_coin1").value+document.getElementById("div_a6_coin2").value
+            }
+        if(flag == 7){
+                    data=document.getElementById("div_a7_money1").value+document.getElementById("div_a7_f1").value
+                        +document.getElementById("div_a7_to1").value+document.getElementById("div_a7_seq1").value
+                        +document.getElementById("div_a7_sig1").value
+                        +document.getElementById("div_a7_money2").value+document.getElementById("div_a7_f2").value
+                        +document.getElementById("div_a7_to2").value+document.getElementById("div_a7_seq2").value
+                        +document.getElementById("div_a7_sig2").value
+                        +document.getElementById("div_a7_money3").value+document.getElementById("div_a7_f3").value
+                        +document.getElementById("div_a7_to3").value+document.getElementById("div_a7_seq3").value
+                        +document.getElementById("div_a7_sig3").value
+                        +document.getElementById("div_a7_money4").value+document.getElementById("div_a7_f4").value
+                        +document.getElementById("div_a7_to4").value+document.getElementById("div_a7_seq4").value
+                        +document.getElementById("div_a7_sig4").value
+            }
+        if(flag ==8){
+                    data=document.getElementById("div_a8_money1").value+document.getElementById("div_a8_f1").value
+                        +document.getElementById("div_a8_to1").value+document.getElementById("div_a8_seq1").value
+                        +document.getElementById("div_a8_sig1").value
+                        +document.getElementById("div_a8_money2").value+document.getElementById("div_a8_f2").value
+                        +document.getElementById("div_a8_to2").value+document.getElementById("div_a8_seq2").value
+                        +document.getElementById("div_a8_sig2").value
+                        +document.getElementById("div_a8_money3").value+document.getElementById("div_a8_f3").value
+                        +document.getElementById("div_a8_to3").value+document.getElementById("div_a8_seq3").value
+                        +document.getElementById("div_a8_sig3").value                    
+            }
+        if(flag ==9){
+                    data=document.getElementById("div_a9_money1").value+document.getElementById("div_a9_f1").value
+                        +document.getElementById("div_a9_to1").value+document.getElementById("div_a9_seq1").value
+                        +document.getElementById("div_a9_sig1").value
+                        +document.getElementById("div_a9_money2").value+document.getElementById("div_a9_f2").value
+                        +document.getElementById("div_a9_to2").value+document.getElementById("div_a9_seq2").value
+                        +document.getElementById("div_a9_sig2").value
+                        +document.getElementById("div_a9_money3").value+document.getElementById("div_a9_f3").value
+                        +document.getElementById("div_a9_to3").value+document.getElementById("div_a9_seq3").value
+                        +document.getElementById("div_a9_sig3").value
+            }
+        if(flag ==10){
+                    data=document.getElementById("div_a10_money1").value+document.getElementById("div_a10_f1").value
+                        +document.getElementById("div_a10_to1").value+document.getElementById("div_a10_seq1").value
+                        +document.getElementById("div_a10_sig1").value
+                        +document.getElementById("div_a10_money2").value+document.getElementById("div_a10_f2").value
+                        +document.getElementById("div_a10_to2").value+document.getElementById("div_a10_seq2").value
+                        +document.getElementById("div_a10_sig2").value
+                        +document.getElementById("div_a10_money3").value+document.getElementById("div_a10_f3").value
+                        +document.getElementById("div_a10_to3").value+document.getElementById("div_a10_seq3").value
+                        +document.getElementById("div_a10_sig3").value
+                        +document.getElementById("div_a10_money4").value+document.getElementById("div_a10_f4").value
+                        +document.getElementById("div_a10_to4").value+document.getElementById("div_a10_seq4").value
+                        +document.getElementById("div_a10_sig4").value
+        }
+        if(flag == 11){
+                    data=data=document.getElementById("div_a11_coin1").value+document.getElementById("div_a11_coin2").value
+            }
+        if(flag == 12){
+                    data=document.getElementById("div_a12_money1").value+document.getElementById("div_a12_f1").value
+                        +document.getElementById("div_a12_to1").value+document.getElementById("div_a12_seq1").value
+                        +document.getElementById("div_a12_sig1").value
+                        +document.getElementById("div_a12_money2").value+document.getElementById("div_a12_f2").value
+                        +document.getElementById("div_a12_to2").value+document.getElementById("div_a12_seq2").value
+                        +document.getElementById("div_a12_sig2").value
+                        +document.getElementById("div_a12_money3").value+document.getElementById("div_a12_f3").value
+                        +document.getElementById("div_a12_to3").value+document.getElementById("div_a12_seq3").value
+                        +document.getElementById("div_a12_sig3").value
+                        +document.getElementById("div_a12_money4").value+document.getElementById("div_a12_f4").value
+                        +document.getElementById("div_a12_to4").value+document.getElementById("div_a12_seq4").value
+                        +document.getElementById("div_a12_sig4").value
+            }
+        if(flag ==13){
+                    data=document.getElementById("div_a13_money1").value+document.getElementById("div_a13_f1").value
+                        +document.getElementById("div_a13_to1").value+document.getElementById("div_a13_seq1").value
+                        +document.getElementById("div_a13_sig1").value
+                        +document.getElementById("div_a13_money2").value+document.getElementById("div_a13_f2").value
+                        +document.getElementById("div_a13_to2").value+document.getElementById("div_a13_seq2").value
+                        +document.getElementById("div_a13_sig2").value
+                        +document.getElementById("div_a13_money3").value+document.getElementById("div_a13_f3").value
+                        +document.getElementById("div_a13_to3").value+document.getElementById("div_a13_seq3").value
+                        +document.getElementById("div_a13_sig3").value                    
+            }
+        if(flag ==14){
+                    data=document.getElementById("div_a14_money1").value+document.getElementById("div_a14_f1").value
+                        +document.getElementById("div_a14_to1").value+document.getElementById("div_a14_seq1").value
+                        +document.getElementById("div_a14_sig1").value
+                        +document.getElementById("div_a14_money2").value+document.getElementById("div_a14_f2").value
+                        +document.getElementById("div_a14_to2").value+document.getElementById("div_a14_seq2").value
+                        +document.getElementById("div_a14_sig2").value
+                        +document.getElementById("div_a14_money3").value+document.getElementById("div_a14_f3").value
+                        +document.getElementById("div_a14_to3").value+document.getElementById("div_a14_seq3").value
+                        +document.getElementById("div_a14_sig3").value
+            }
+        if(flag ==15){
+                    data=document.getElementById("div_a15_money1").value+document.getElementById("div_a15_f1").value
+                        +document.getElementById("div_a15_to1").value+document.getElementById("div_a15_seq1").value
+                        +document.getElementById("div_a15_sig1").value
+                        +document.getElementById("div_a15_money2").value+document.getElementById("div_a15_f2").value
+                        +document.getElementById("div_a15_to2").value+document.getElementById("div_a15_seq2").value
+                        +document.getElementById("div_a15_sig2").value
+                        +document.getElementById("div_a15_money3").value+document.getElementById("div_a15_f3").value
+                        +document.getElementById("div_a15_to3").value+document.getElementById("div_a15_seq3").value
+                        +document.getElementById("div_a15_sig3").value
+                        +document.getElementById("div_a15_money4").value+document.getElementById("div_a15_f4").value
+                        +document.getElementById("div_a15_to4").value+document.getElementById("div_a15_seq4").value
+                        +document.getElementById("div_a15_sig4").value
+        }
+        return data        
+    }
+    function calhash(flag){
+            if(flag == 1){
+                var bh=document.getElementById("div_a1_bh").value
+                var nc=document.getElementById("div_a1_nonce").value
+                var co1=document.getElementById("div_a1_coin1").value
+                var co2=document.getElementById("div_a1_coin2").value
+                document.getElementById("div_a1_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a2_pre").value=document.getElementById("div_a1_hash").value
+                calhash(2)
+                document.getElementById("div_a1").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 2){
+                var bh=document.getElementById("div_a2_bh").value
+                var nc=document.getElementById("div_a2_nonce").value
+                var co1=document.getElementById("div_a2_coin1").value
+                var co2=document.getElementById("div_a2_coin2").value
+                var pr=document.getElementById("div_a2_pre").value
+                var data=gettabledata(2)
+                document.getElementById("div_a2_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a3_pre").value=document.getElementById("div_a2_hash").value
+                calhash(3)
+                document.getElementById("div_a2").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 3){
+                var bh=document.getElementById("div_a3_bh").value
+                var nc=document.getElementById("div_a3_nonce").value
+                var co1=document.getElementById("div_a3_coin1").value
+                var co2=document.getElementById("div_a3_coin2").value
+                var pr=document.getElementById("div_a3_pre").value
+                var data=gettabledata(3)
+                document.getElementById("div_a3_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a4_pre").value=document.getElementById("div_a3_hash").value
+                calhash(4)
+                document.getElementById("div_a3").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 4){
+                var bh=document.getElementById("div_a4_bh").value
+                var nc=document.getElementById("div_a4_nonce").value
+                var co1=document.getElementById("div_a4_coin1").value
+                var co2=document.getElementById("div_a4_coin2").value
+                var pr=document.getElementById("div_a4_pre").value
+                var data=gettabledata(4)
+                document.getElementById("div_a4_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a5_pre").value=document.getElementById("div_a4_hash").value
+                calhash(5)
+                document.getElementById("div_a4").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 5){
+                var bh=document.getElementById("div_a5_bh").value
+                var nc=document.getElementById("div_a5_nonce").value
+                var co1=document.getElementById("div_a5_coin1").value
+                var co2=document.getElementById("div_a5_coin2").value
+                var pr=document.getElementById("div_a5_pre").value
+                var data=gettabledata(5)
+                document.getElementById("div_a5_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a5").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 6){
+                 var bh=document.getElementById("div_a6_bh").value
+                 var nc=document.getElementById("div_a6_nonce").value
+                var co1=document.getElementById("div_a6_coin1").value
+                var co2=document.getElementById("div_a6_coin2").value
+                document.getElementById("div_a6_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a7_pre").value=document.getElementById("div_a6_hash").value
+                calhash(7)
+                document.getElementById("div_a6").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 7){
+                 var bh=document.getElementById("div_a7_bh").value
+                 var nc=document.getElementById("div_a7_nonce").value
+                var co1=document.getElementById("div_a7_coin1").value
+                var co2=document.getElementById("div_a7_coin2").value
+                 var pr=document.getElementById("div_a7_pre").value
+                var data=gettabledata(7)
+                document.getElementById("div_a7_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a8_pre").value=document.getElementById("div_a7_hash").value
+                calhash(8)
+                document.getElementById("div_a7").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 8){
+                var bh= document.getElementById("div_a8_bh").value
+                var nc= document.getElementById("div_a8_nonce").value
+                var co1=document.getElementById("div_a8_coin1").value
+                var co2=document.getElementById("div_a8_coin2").value
+                var pr=document.getElementById("div_a8_pre").value
+                var data=gettabledata(8)
+                document.getElementById("div_a8_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a9_pre").value=document.getElementById("div_a8_hash").value
+                calhash(9)
+                document.getElementById("div_a8").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 9){
+                var bh= document.getElementById("div_a9_bh").value
+                var nc= document.getElementById("div_a9_nonce").value
+                var co1=document.getElementById("div_a9_coin1").value
+                var co2=document.getElementById("div_a9_coin2").value
+                var pr= document.getElementById("div_a9_pre").value
+                var data=gettabledata(9)
+                document.getElementById("div_a9_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a10_pre").value=document.getElementById("div_a9_hash").value
+                calhash(10)
+                document.getElementById("div_a9").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 10){
+                var bh= document.getElementById("div_a10_bh").value
+                var nc= document.getElementById("div_a10_nonce").value
+                var co1=document.getElementById("div_a10_coin1").value
+                var co2=document.getElementById("div_a10_coin2").value
+                var pr= document.getElementById("div_a10_pre").value
+                var data=gettabledata(10)
+                document.getElementById("div_a10_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a10").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 11){
+                 var bh=document.getElementById("div_a11_bh").value
+                 var nc=document.getElementById("div_a11_nonce").value
+                var co1=document.getElementById("div_a11_coin1").value
+                var co2=document.getElementById("div_a11_coin2").value
+                document.getElementById("div_a11_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a12_pre").value=document.getElementById("div_a11_hash").value
+                calhash(12)
+                document.getElementById("div_a11").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 12){
+                 var bh=document.getElementById("div_a12_bh").value
+                 var nc=document.getElementById("div_a12_nonce").value
+                var co1=document.getElementById("div_a12_coin1").value
+                var co2=document.getElementById("div_a12_coin2").value
+                 var pr=document.getElementById("div_a12_pre").value
+                var data=gettabledata(12)
+                document.getElementById("div_a12_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a13_pre").value=document.getElementById("div_a12_hash").value
+                calhash(13)
+                document.getElementById("div_a12").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 13){
+                var bh= document.getElementById("div_a13_bh").value
+                var nc= document.getElementById("div_a13_nonce").value
+                var co1=document.getElementById("div_a13_coin1").value
+                var co2=document.getElementById("div_a13_coin2").value
+                var pr=document.getElementById("div_a13_pre").value
+                var data=gettabledata(13)
+                document.getElementById("div_a13_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a14_pre").value=document.getElementById("div_a13_hash").value
+                calhash(14)
+                document.getElementById("div_a13").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 14){
+                var bh= document.getElementById("div_a14_bh").value
+                var nc= document.getElementById("div_a14_nonce").value
+                var co1=document.getElementById("div_a14_coin1").value
+                var co2=document.getElementById("div_a14_coin2").value
+                var pr= document.getElementById("div_a14_pre").value
+                var data=gettabledata(14)
+                document.getElementById("div_a14_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a15_pre").value=document.getElementById("div_a14_hash").value
+                calhash(15)
+                document.getElementById("div_a14").style.backgroundColor="rgb(250,220,220)"
+            }
+            if(flag == 15){
+                var bh= document.getElementById("div_a15_bh").value
+                var nc= document.getElementById("div_a15_nonce").value
+                var co1=document.getElementById("div_a15_coin1").value
+                var co2=document.getElementById("div_a15_coin2").value
+                var pr= document.getElementById("div_a15_pre").value
+                var data=gettabledata(15)
+                document.getElementById("div_a15_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+                document.getElementById("div_a15").style.backgroundColor="rgb(250,220,220)"
+            }
+        }
+        document.getElementById("div_a1_bh").addEventListener("input",function(){calhash(1)})
+        document.getElementById("div_a1_nonce").addEventListener("input",function(){calhash(1)})
+        document.getElementById("div_a1_coin1").addEventListener("input",function(){calhash(1)})
+        document.getElementById("div_a1_coin2").addEventListener("input",function(){calhash(1)})        
+        document.getElementById("div_a2_bh").addEventListener("input",function(){calhash(2)})
+        document.getElementById("div_a2_nonce").addEventListener("input",function(){calhash(2)})
+        document.getElementById("div_a2_coin1").addEventListener("input",function(){calhash(2)})
+        document.getElementById("div_a2_coin2").addEventListener("input",function(){calhash(2)})
+        document.getElementById("div_a3_bh").addEventListener("input",function(){calhash(3)})
+        document.getElementById("div_a3_nonce").addEventListener("input",function(){calhash(3)})
+        document.getElementById("div_a3_coin1").addEventListener("input",function(){calhash(3)})
+        document.getElementById("div_a3_coin2").addEventListener("input",function(){calhash(3)})
+        document.getElementById("div_a4_bh").addEventListener("input",function(){calhash(4)})
+        document.getElementById("div_a4_nonce").addEventListener("input",function(){calhash(4)})
+        document.getElementById("div_a4_coin1").addEventListener("input",function(){calhash(4)})
+        document.getElementById("div_a4_coin2").addEventListener("input",function(){calhash(4)})
+        document.getElementById("div_a5_bh").addEventListener("input",function(){calhash(5)})
+        document.getElementById("div_a5_nonce").addEventListener("input",function(){calhash(5)})
+        document.getElementById("div_a5_coin1").addEventListener("input",function(){calhash(5)})
+        document.getElementById("div_a5_coin2").addEventListener("input",function(){calhash(5)})
+        document.getElementById("div_a6_bh").addEventListener("input",   function(){calhash(6)})
+        document.getElementById("div_a6_nonce").addEventListener("input",function(){calhash(6)})
+        document.getElementById("div_a6_coin1").addEventListener("input",function(){calhash(6)})
+        document.getElementById("div_a6_coin2").addEventListener("input",function(){calhash(6)})        
+        document.getElementById("div_a7_bh").addEventListener("input",   function(){calhash(7)})
+        document.getElementById("div_a7_nonce").addEventListener("input",function(){calhash(7)})
+        document.getElementById("div_a7_coin1").addEventListener("input",function(){calhash(7)})
+        document.getElementById("div_a7_coin2").addEventListener("input",function(){calhash(7)})
+        document.getElementById("div_a8_bh").addEventListener("input",   function(){calhash(8)})
+        document.getElementById("div_a8_nonce").addEventListener("input",function(){calhash(8)})
+        document.getElementById("div_a8_coin1").addEventListener("input",function(){calhash(8)})
+        document.getElementById("div_a8_coin2").addEventListener("input",function(){calhash(8)})
+        document.getElementById("div_a9_bh").addEventListener("input",   function(){calhash(9)})
+        document.getElementById("div_a9_nonce").addEventListener("input",function(){calhash(9)})
+        document.getElementById("div_a9_coin1").addEventListener("input",function(){calhash(9)})
+        document.getElementById("div_a9_coin2").addEventListener("input",function(){calhash(9)})
+        document.getElementById("div_a10_bh").addEventListener("input",   function(){calhash(10)})
+        document.getElementById("div_a10_nonce").addEventListener("input",function(){calhash(10)})
+        document.getElementById("div_a10_coin1").addEventListener("input",function(){calhash(10)})
+        document.getElementById("div_a10_coin2").addEventListener("input",function(){calhash(10)})
+        document.getElementById("div_a11_bh").addEventListener("input",   function(){calhash(11)})
+        document.getElementById("div_a11_nonce").addEventListener("input",function(){calhash(11)})
+        document.getElementById("div_a11_coin1").addEventListener("input",function(){calhash(11)})
+        document.getElementById("div_a11_coin2").addEventListener("input",function(){calhash(11)})        
+        document.getElementById("div_a12_bh").addEventListener("input",   function(){calhash(12)})
+        document.getElementById("div_a12_nonce").addEventListener("input",function(){calhash(12)})
+        document.getElementById("div_a12_coin1").addEventListener("input",function(){calhash(12)})
+        document.getElementById("div_a12_coin2").addEventListener("input",function(){calhash(12)})
+        document.getElementById("div_a13_bh").addEventListener("input",   function(){calhash(13)})
+        document.getElementById("div_a13_nonce").addEventListener("input",function(){calhash(13)})
+        document.getElementById("div_a13_coin1").addEventListener("input",function(){calhash(13)})
+        document.getElementById("div_a13_coin2").addEventListener("input",function(){calhash(13)})
+        document.getElementById("div_a14_bh").addEventListener("input",   function(){calhash(14)})
+        document.getElementById("div_a14_nonce").addEventListener("input",function(){calhash(14)})
+        document.getElementById("div_a14_coin1").addEventListener("input",function(){calhash(14)})
+        document.getElementById("div_a14_coin2").addEventListener("input",function(){calhash(14)})
+        document.getElementById("div_a15_bh").addEventListener("input",   function(){calhash(15)})
+        document.getElementById("div_a15_nonce").addEventListener("input",function(){calhash(15)})
+        document.getElementById("div_a15_coin1").addEventListener("input",function(){calhash(15)})
+        document.getElementById("div_a15_coin2").addEventListener("input",function(){calhash(15)})
+        //-----
+        document.getElementById("div_a2_money1").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig1").style.color="red"
+        })
+        document.getElementById("div_a2_f1").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig1").style.color="red"
+        })
+        document.getElementById("div_a2_to1").addEventListener("input",function(){
+            calhash(2);
+            document.getElementById("div_a2_sig1").style.color="red"
+        })
+        document.getElementById("div_a2_seq1").addEventListener("input",function(){
+            calhash(2);
+            document.getElementById("div_a2_sig1").style.color="red"
+        })
+        document.getElementById("div_a2_sig1").addEventListener("input",function(){
+            calhash(2);
+        })
+        document.getElementById("div_a2_money2").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig2").style.color="red"
+        })
+        document.getElementById("div_a2_f2").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig2").style.color="red"
+        })
+        document.getElementById("div_a2_to2").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig2").style.color="red"
+        })
+        document.getElementById("div_a2_seq2").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig2").style.color="red"
+        })
+        document.getElementById("div_a2_sig2").addEventListener("input",function(){
+            calhash(2);
+        })
+        document.getElementById("div_a2_money3").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig3").style.color="red"
+        })
+        document.getElementById("div_a2_f3").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig3").style.color="red"
+        })
+        document.getElementById("div_a2_to3").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig3").style.color="red"
+        })
+        document.getElementById("div_a2_seq3").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig3").style.color="red"
+        })
+        document.getElementById("div_a2_sig3").addEventListener("input",function(){
+            calhash(2);
+        })
+        document.getElementById("div_a2_money4").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig4").style.color="red"
+        })
+        document.getElementById("div_a2_f4").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig4").style.color="red"
+        })
+        document.getElementById("div_a2_to4").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig4").style.color="red"
+        })
+        document.getElementById("div_a2_seq4").addEventListener("input",function(){
+            calhash(2);
+        document.getElementById("div_a2_sig4").style.color="red"
+        })
+        document.getElementById("div_a2_sig4").addEventListener("input",function(){
+            calhash(2);
+        })
+        //----
+        document.getElementById("div_a3_money1").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig1").style.color="red"
+        })
+        document.getElementById("div_a3_f1").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig1").style.color="red"
+        })
+        document.getElementById("div_a3_to1").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig1").style.color="red"
+        })
+        document.getElementById("div_a3_seq1").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig1").style.color="red"
+        })
+        document.getElementById("div_a3_sig1").addEventListener("input",function(){
+            calhash(3);
+        })
+        document.getElementById("div_a3_money2").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig2").style.color="red"
+        })
+        document.getElementById("div_a3_f2").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig2").style.color="red"
+        })
+        document.getElementById("div_a3_to2").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig2").style.color="red"
+        })
+        document.getElementById("div_a3_seq2").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig2").style.color="red"
+        })
+        document.getElementById("div_a3_sig2").addEventListener("input",function(){
+            calhash(3);
+        })
+        document.getElementById("div_a3_money3").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig3").style.color="red"
+        })
+        document.getElementById("div_a3_f3").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig3").style.color="red"
+        })
+        document.getElementById("div_a3_to3").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig3").style.color="red"
+        })
+        document.getElementById("div_a3_seq3").addEventListener("input",function(){
+            calhash(3);
+        document.getElementById("div_a3_sig3").style.color="red"
+        })
+        document.getElementById("div_a3_sig3").addEventListener("input",function(){
+            calhash(3);
+        })
+        //---
+        document.getElementById("div_a4_money1").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig1").style.color="red"
+        })
+        document.getElementById("div_a4_f1").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig1").style.color="red"
+        })
+        document.getElementById("div_a4_to1").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig1").style.color="red"
+        })
+        document.getElementById("div_a4_seq1").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig1").style.color="red"
+        })
+        document.getElementById("div_a4_sig1").addEventListener("input",function(){
+            calhash(4);
+        })
+        document.getElementById("div_a4_money2").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig2").style.color="red"
+        })
+        document.getElementById("div_a4_f2").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig2").style.color="red"
+        })
+        document.getElementById("div_a4_to2").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig2").style.color="red"
+        })
+        document.getElementById("div_a4_seq2").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig2").style.color="red"
+        })
+        document.getElementById("div_a4_sig2").addEventListener("input",function(){
+            calhash(4);
+        })
+        document.getElementById("div_a4_money3").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig3").style.color="red"
+        })
+        document.getElementById("div_a4_f3").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig3").style.color="red"
+        })
+        document.getElementById("div_a4_to3").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig3").style.color="red"
+        })
+        document.getElementById("div_a4_seq3").addEventListener("input",function(){
+            calhash(4);
+        document.getElementById("div_a4_sig3").style.color="red"
+        })
+        document.getElementById("div_a4_sig3").addEventListener("input",function(){
+            calhash(4);
+        })
+        //---
+        document.getElementById("div_a5_money1").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig1").style.color="red"
+        })
+        document.getElementById("div_a5_f1").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig1").style.color="red"
+        })
+        document.getElementById("div_a5_to1").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig1").style.color="red"
+        })
+        document.getElementById("div_a5_seq1").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig1").style.color="red"
+        })
+        document.getElementById("div_a5_sig1").addEventListener("input",function(){
+            calhash(5);
+        })
+        document.getElementById("div_a5_money2").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig2").style.color="red"
+        })
+        document.getElementById("div_a5_f2").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig2").style.color="red"
+        })
+        document.getElementById("div_a5_to2").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig2").style.color="red"
+        })
+        document.getElementById("div_a5_seq2").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig2").style.color="red"
+        })
+        document.getElementById("div_a5_sig2").addEventListener("input",function(){
+            calhash(5);
+        })
+        document.getElementById("div_a5_money3").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig3").style.color="red"
+        })
+        document.getElementById("div_a5_f3").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig3").style.color="red"
+        })
+        document.getElementById("div_a5_to3").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig3").style.color="red"
+        })
+        document.getElementById("div_a5_seq3").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig3").style.color="red"
+        })
+        document.getElementById("div_a5_sig3").addEventListener("input",function(){
+            calhash(5);
+        })
+        document.getElementById("div_a5_money4").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig4").style.color="red"
+        })
+        document.getElementById("div_a5_f4").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig4").style.color="red"
+        })
+        document.getElementById("div_a5_to4").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig4").style.color="red"
+        })
+        document.getElementById("div_a5_seq4").addEventListener("input",function(){
+            calhash(5);
+        document.getElementById("div_a5_sig4").style.color="red"
+        })
+        document.getElementById("div_a5_sig4").addEventListener("input",function(){
+            calhash(5);
+        })
+        //---
+        document.getElementById("div_a7_money1").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig1").style.color="red"
+        })
+        document.getElementById("div_a7_f1").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig1").style.color="red"
+        })
+        document.getElementById("div_a7_to1").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig1").style.color="red"
+        })
+        document.getElementById("div_a7_seq1").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig1").style.color="red"
+        })
+        document.getElementById("div_a7_sig1").addEventListener("input",function(){
+            calhash(7);
+        })
+        document.getElementById("div_a7_money2").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig2").style.color="red"
+        })
+        document.getElementById("div_a7_f2").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig2").style.color="red"
+        })
+        document.getElementById("div_a7_to2").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig2").style.color="red"
+        })
+        document.getElementById("div_a7_seq2").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig2").style.color="red"
+        })
+        document.getElementById("div_a7_sig2").addEventListener("input",function(){
+            calhash(7);
+        })
+        document.getElementById("div_a7_money3").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig3").style.color="red"
+        })
+        document.getElementById("div_a7_f3").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig3").style.color="red"
+        })
+        document.getElementById("div_a7_to3").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig3").style.color="red"
+        })
+        document.getElementById("div_a7_seq3").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig3").style.color="red"
+        })
+        document.getElementById("div_a7_sig3").addEventListener("input",function(){
+            calhash(7);
+        })
+        document.getElementById("div_a7_money4").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig4").style.color="red"
+        })
+        document.getElementById("div_a7_f4").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig4").style.color="red"
+        })
+        document.getElementById("div_a7_to4").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig4").style.color="red"
+        })
+        document.getElementById("div_a7_seq4").addEventListener("input",function(){
+            calhash(7);
+        document.getElementById("div_a7_sig4").style.color="red"
+        })
+        document.getElementById("div_a7_sig4").addEventListener("input",function(){
+            calhash(7);
+        })
+        //----
+        document.getElementById("div_a8_money1").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig1").style.color="red"
+        })
+        document.getElementById("div_a8_f1").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig1").style.color="red"
+        })
+        document.getElementById("div_a8_to1").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig1").style.color="red"
+        })
+        document.getElementById("div_a8_seq1").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig1").style.color="red"
+        })
+        document.getElementById("div_a8_sig1").addEventListener("input",function(){
+            calhash(8);
+        })
+        document.getElementById("div_a8_money2").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig2").style.color="red"
+        })
+        document.getElementById("div_a8_f2").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig2").style.color="red"
+        })
+        document.getElementById("div_a8_to2").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig2").style.color="red"
+        })
+        document.getElementById("div_a8_seq2").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig2").style.color="red"
+        })
+        document.getElementById("div_a8_sig2").addEventListener("input",function(){
+            calhash(8);
+        })
+        document.getElementById("div_a8_money3").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig3").style.color="red"
+        })
+        document.getElementById("div_a8_f3").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig3").style.color="red"
+        })
+        document.getElementById("div_a8_to3").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig3").style.color="red"
+        })
+        document.getElementById("div_a8_seq3").addEventListener("input",function(){
+            calhash(8);
+        document.getElementById("div_a8_sig3").style.color="red"
+        })
+        document.getElementById("div_a8_sig3").addEventListener("input",function(){
+            calhash(8);
+        })
+        //---
+        document.getElementById("div_a9_money1").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig1").style.color="red"
+        })
+        document.getElementById("div_a9_f1").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig1").style.color="red"
+        })
+        document.getElementById("div_a9_to1").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig1").style.color="red"
+        })
+        document.getElementById("div_a9_seq1").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig1").style.color="red"
+        })
+        document.getElementById("div_a9_sig1").addEventListener("input",function(){
+            calhash(9);
+        })
+        document.getElementById("div_a9_money2").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig2").style.color="red"
+        })
+        document.getElementById("div_a9_f2").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig2").style.color="red"
+        })
+        document.getElementById("div_a9_to2").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig2").style.color="red"
+        })
+        document.getElementById("div_a9_seq2").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig2").style.color="red"
+        })
+        document.getElementById("div_a9_sig2").addEventListener("input",function(){
+            calhash(9);
+        })
+        document.getElementById("div_a9_money3").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig3").style.color="red"
+        })
+        document.getElementById("div_a9_f3").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig3").style.color="red"
+        })
+        document.getElementById("div_a9_to3").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig3").style.color="red"
+        })
+        document.getElementById("div_a9_seq3").addEventListener("input",function(){
+            calhash(9);
+        document.getElementById("div_a9_sig3").style.color="red"
+        })
+        document.getElementById("div_a9_sig3").addEventListener("input",function(){
+            calhash(9);
+        })
+        //---
+        document.getElementById("div_a10_money1").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig1").style.color="red"
+        })
+        document.getElementById("div_a10_f1").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig1").style.color="red"
+        })
+        document.getElementById("div_a10_to1").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig1").style.color="red"
+        })
+        document.getElementById("div_a10_seq1").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig1").style.color="red"
+        })
+        document.getElementById("div_a10_sig1").addEventListener("input",function(){
+            calhash(10);
+        })
+        document.getElementById("div_a10_money2").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig2").style.color="red"
+        })
+        document.getElementById("div_a10_f2").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig2").style.color="red"
+        })
+        document.getElementById("div_a10_to2").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig2").style.color="red"
+        })
+        document.getElementById("div_a10_seq2").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig2").style.color="red"
+        })
+        document.getElementById("div_a10_sig2").addEventListener("input",function(){
+            calhash(10);
+        })
+        document.getElementById("div_a10_money3").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig3").style.color="red"
+        })
+        document.getElementById("div_a10_f3").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig3").style.color="red"
+        })
+        document.getElementById("div_a10_to3").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig3").style.color="red"
+        })
+        document.getElementById("div_a10_seq3").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig3").style.color="red"
+        })
+        document.getElementById("div_a10_sig3").addEventListener("input",function(){
+            calhash(10);
+        })
+        document.getElementById("div_a10_money4").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig4").style.color="red"
+        })
+        document.getElementById("div_a10_f4").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig4").style.color="red"
+        })
+        document.getElementById("div_a10_to4").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig4").style.color="red"
+        })
+        document.getElementById("div_a10_seq4").addEventListener("input",function(){
+            calhash(10);
+        document.getElementById("div_a10_sig4").style.color="red"
+        })
+        document.getElementById("div_a10_sig4").addEventListener("input",function(){
+            calhash(10);
+        })
+        //----
+        document.getElementById("div_a12_money1").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig1").style.color="red"
+        })
+        document.getElementById("div_a12_f1").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig1").style.color="red"
+        })
+        document.getElementById("div_a12_to1").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig1").style.color="red"
+        })
+        document.getElementById("div_a12_seq1").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig1").style.color="red"
+        })
+        document.getElementById("div_a12_sig1").addEventListener("input",function(){
+            calhash(12);
+        })
+        document.getElementById("div_a12_money2").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig2").style.color="red"
+        })
+        document.getElementById("div_a12_f2").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig2").style.color="red"
+        })
+        document.getElementById("div_a12_to2").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig2").style.color="red"
+        })
+        document.getElementById("div_a12_seq2").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig2").style.color="red"
+        })
+        document.getElementById("div_a12_sig2").addEventListener("input",function(){
+            calhash(12);
+        })
+        document.getElementById("div_a12_money3").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig3").style.color="red"
+        })
+        document.getElementById("div_a12_f3").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig3").style.color="red"
+        })
+        document.getElementById("div_a12_to3").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig3").style.color="red"
+        })
+        document.getElementById("div_a12_seq3").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig3").style.color="red"
+        })
+        document.getElementById("div_a12_sig3").addEventListener("input",function(){
+            calhash(12);
+        })
+        document.getElementById("div_a12_money4").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig4").style.color="red"
+        })
+        document.getElementById("div_a12_f4").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig4").style.color="red"
+        })
+        document.getElementById("div_a12_to4").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig4").style.color="red"
+        })
+        document.getElementById("div_a12_seq4").addEventListener("input",function(){
+            calhash(12);
+        document.getElementById("div_a12_sig4").style.color="red"
+        })
+        document.getElementById("div_a12_sig4").addEventListener("input",function(){
+            calhash(12);
+        })
+        //----
+        document.getElementById("div_a13_money1").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig1").style.color="red"
+        })
+        document.getElementById("div_a13_f1").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig1").style.color="red"
+        })
+        document.getElementById("div_a13_to1").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig1").style.color="red"
+        })
+        document.getElementById("div_a13_seq1").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig1").style.color="red"
+        })
+        document.getElementById("div_a13_sig1").addEventListener("input",function(){
+            calhash(13);
+        })
+        document.getElementById("div_a13_money2").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig2").style.color="red"
+        })
+        document.getElementById("div_a13_f2").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig2").style.color="red"
+        })
+        document.getElementById("div_a13_to2").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig2").style.color="red"
+        })
+        document.getElementById("div_a13_seq2").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig2").style.color="red"
+        })
+        document.getElementById("div_a13_sig2").addEventListener("input",function(){
+            calhash(13);
+        })
+        document.getElementById("div_a13_money3").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig3").style.color="red"
+        })
+        document.getElementById("div_a13_f3").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig3").style.color="red"
+        })
+        document.getElementById("div_a13_to3").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig3").style.color="red"
+        })
+        document.getElementById("div_a13_seq3").addEventListener("input",function(){
+            calhash(13);
+        document.getElementById("div_a13_sig3").style.color="red"
+        })
+        document.getElementById("div_a13_sig3").addEventListener("input",function(){
+            calhash(13);
+        })
+        //---
+        document.getElementById("div_a14_money1").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig1").style.color="red"
+        })
+        document.getElementById("div_a14_f1").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig1").style.color="red"
+        })
+        document.getElementById("div_a14_to1").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig1").style.color="red"
+        })
+        document.getElementById("div_a14_seq1").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig1").style.color="red"
+        })
+        document.getElementById("div_a14_sig1").addEventListener("input",function(){
+            calhash(14);
+        })
+        document.getElementById("div_a14_money2").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig2").style.color="red"
+        })
+        document.getElementById("div_a14_f2").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig2").style.color="red"
+        })
+        document.getElementById("div_a14_to2").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig2").style.color="red"
+        })
+        document.getElementById("div_a14_seq2").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig2").style.color="red"
+        })
+        document.getElementById("div_a14_sig2").addEventListener("input",function(){
+            calhash(14);
+        })
+        document.getElementById("div_a14_money3").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig3").style.color="red"
+        })
+        document.getElementById("div_a14_f3").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig3").style.color="red"
+        })
+        document.getElementById("div_a14_to3").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig3").style.color="red"
+        })
+        document.getElementById("div_a14_seq3").addEventListener("input",function(){
+            calhash(14);
+        document.getElementById("div_a14_sig3").style.color="red"
+        })
+        document.getElementById("div_a14_sig3").addEventListener("input",function(){
+            calhash(14);
+        })
+        //---
+        document.getElementById("div_a15_money1").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig1").style.color="red"
+        })
+        document.getElementById("div_a15_f1").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig1").style.color="red"
+        })
+        document.getElementById("div_a15_to1").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig1").style.color="red"
+        })
+        document.getElementById("div_a15_seq1").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig1").style.color="red"
+        })
+        document.getElementById("div_a15_sig1").addEventListener("input",function(){
+            calhash(15);
+        })
+        document.getElementById("div_a15_money2").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig2").style.color="red"
+        })
+        document.getElementById("div_a15_f2").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig2").style.color="red"
+        })
+        document.getElementById("div_a15_to2").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig2").style.color="red"
+        })
+        document.getElementById("div_a15_seq2").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig2").style.color="red"
+        })
+        document.getElementById("div_a15_sig2").addEventListener("input",function(){
+            calhash(15);
+        })
+        document.getElementById("div_a15_money3").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig3").style.color="red"
+        })
+        document.getElementById("div_a15_f3").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig3").style.color="red"
+        })
+        document.getElementById("div_a15_to3").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig3").style.color="red"
+        })
+        document.getElementById("div_a15_seq3").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig3").style.color="red"
+        })
+        document.getElementById("div_a15_sig3").addEventListener("input",function(){
+            calhash(15);
+        })
+        document.getElementById("div_a15_money4").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig4").style.color="red"
+        })
+        document.getElementById("div_a15_f4").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig4").style.color="red"
+        })
+        document.getElementById("div_a15_to4").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig4").style.color="red"
+        })
+        document.getElementById("div_a15_seq4").addEventListener("input",function(){
+            calhash(15);
+        document.getElementById("div_a15_sig4").style.color="red"
+        })
+        document.getElementById("div_a15_sig4").addEventListener("input",function(){
+            calhash(15);
+        })
+        //---
+        document.getElementById("div_a1_btn").onclick=function(){
+            var bh=document.getElementById("div_a1_bh").value
+            var da=gettabledata(1)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a1_nonce").value=data.nonce
+                document.getElementById("div_a1_hash").value=data.hashdata
+                document.getElementById("div_a2_pre").value=document.getElementById("div_a1_hash").value
+                calhash(2)
+                document.getElementById("div_a1").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a2_btn").onclick=function(){
+            var bh=document.getElementById("div_a2_bh").value
+            var da=gettabledata(2)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a2_nonce").value=data.nonce
+                document.getElementById("div_a2_hash").value=data.hashdata
+                document.getElementById("div_a3_pre").value=document.getElementById("div_a2_hash").value
+                calhash(3)
+                document.getElementById("div_a2").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a3_btn").onclick=function(){
+            var bh=document.getElementById("div_a3_bh").value
+            var da=gettabledata(3)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a3_nonce").value=data.nonce
+                document.getElementById("div_a3_hash").value=data.hashdata
+                document.getElementById("div_a4_pre").value=document.getElementById("div_a3_hash").value
+                calhash(4)
+                document.getElementById("div_a3").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a4_btn").onclick=function(){
+            var bh=document.getElementById("div_a4_bh").value
+            var da=gettabledata(4)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a4_nonce").value=data.nonce
+                document.getElementById("div_a4_hash").value=data.hashdata
+                document.getElementById("div_a5_pre").value=document.getElementById("div_a4_hash").value
+                calhash(5)
+                document.getElementById("div_a4").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a5_btn").onclick=function(){
+            var bh=document.getElementById("div_a5_bh").value
+            var da=gettabledata(5)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a5_nonce").value=data.nonce
+                document.getElementById("div_a5_hash").value=data.hashdata
+                document.getElementById("div_a5").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a6_btn").onclick=function(){
+            var bh=document.getElementById("div_a6_bh").value
+            var da=gettabledata(6)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a6_nonce").value=data.nonce
+                document.getElementById("div_a6_hash").value=data.hashdata
+                document.getElementById("div_a7_pre").value=document.getElementById("div_a6_hash").value
+                calhash(7)
+                document.getElementById("div_a6").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a7_btn").onclick=function(){
+            var bh=document.getElementById("div_a7_bh").value
+            var da=gettabledata(7)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a7_nonce").value=data.nonce
+                document.getElementById("div_a7_hash").value=data.hashdata
+                document.getElementById("div_a8_pre").value=document.getElementById("div_a7_hash").value
+                calhash(8)
+                document.getElementById("div_a7").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a8_btn").onclick=function(){
+            var bh=document.getElementById("div_a8_bh").value
+            var da=gettabledata(8)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a8_nonce").value=data.nonce
+                document.getElementById("div_a8_hash").value=data.hashdata
+                document.getElementById("div_a9_pre").value=document.getElementById("div_a8_hash").value
+                calhash(9)
+                document.getElementById("div_a8").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a9_btn").onclick=function(){
+            var bh=document.getElementById("div_a9_bh").value
+            var da=gettabledata(9)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a9_nonce").value=data.nonce
+                document.getElementById("div_a9_hash").value=data.hashdata
+                document.getElementById("div_a10_pre").value=document.getElementById("div_a9_hash").value
+                calhash(10)
+                document.getElementById("div_a9").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a10_btn").onclick=function(){
+            var bh=document.getElementById("div_a10_bh").value
+            var da=gettabledata(10)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a10_nonce").value=data.nonce
+                document.getElementById("div_a10_hash").value=data.hashdata
+                document.getElementById("div_a10").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a11_btn").onclick=function(){
+            var bh=document.getElementById("div_a11_bh").value
+            var da=gettabledata(11)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a11_nonce").value=data.nonce
+                document.getElementById("div_a11_hash").value=data.hashdata
+                document.getElementById("div_a12_pre").value=document.getElementById("div_a11_hash").value
+                calhash(12)
+                document.getElementById("div_a11").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a12_btn").onclick=function(){
+            var bh=document.getElementById("div_a12_bh").value
+            var da=gettabledata(12)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a12_nonce").value=data.nonce
+                document.getElementById("div_a12_hash").value=data.hashdata
+                document.getElementById("div_a13_pre").value=document.getElementById("div_a12_hash").value
+                calhash(13)
+                document.getElementById("div_a12").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a13_btn").onclick=function(){
+            var bh=document.getElementById("div_a13_bh").value
+            var da=gettabledata(13)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a13_nonce").value=data.nonce
+                document.getElementById("div_a13_hash").value=data.hashdata
+                document.getElementById("div_a14_pre").value=document.getElementById("div_a13_hash").value
+                calhash(14)
+                document.getElementById("div_a13").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a14_btn").onclick=function(){
+            var bh=document.getElementById("div_a14_bh").value
+            var da=gettabledata(14)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a14_nonce").value=data.nonce
+                document.getElementById("div_a14_hash").value=data.hashdata
+                document.getElementById("div_a15_pre").value=document.getElementById("div_a14_hash").value
+                calhash(15)
+                document.getElementById("div_a14").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        document.getElementById("div_a15_btn").onclick=function(){
+            var bh=document.getElementById("div_a15_bh").value
+            var da=gettabledata(15)
+            var obj={
+                        Bl:bh,
+                        Da:da                   
+                        }
+                ajaxpost('/Blockchainsign',obj,function(jsonvalue){
+                var data = eval('(' + jsonvalue + ')');
+                document.getElementById("div_a15_nonce").value=data.nonce
+                document.getElementById("div_a15_hash").value=data.hashdata
+                document.getElementById("div_a15").style.backgroundColor="rgb(223,240,216)"
+                })
+        }
+        </script>
+</body>
+</html>

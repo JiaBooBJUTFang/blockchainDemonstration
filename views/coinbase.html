@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>coinbase</title>
+	<style type="text/css">
+ul {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #111;
+}
+		.container{
+			padding: 10px;
+		}
+		.bg{
+			padding: 20px;
+			background: rgb(223,240,216);
+			border-radius: 5px;
+			border:1px solid #e3e3e3;
+			width: 450px;
+			height: 515px;
+		}
+		.col{
+			overflow: hidden;
+			padding: 10px 0;
+		}
+		.col label{
+			float: left;
+			width: 60px;
+			height: 30px;
+			line-height: 30px;
+			font-weight: bolder;
+		}
+		form div span{
+			height: 34px;
+			padding: 6px 12px;
+			padding-bottom: 7px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px
+		}
+		form div input{
+			width: 370px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+		form div table{
+			width: 370px;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			overflow: hidden;
+		}
+		form div table tr{
+			height: 30px;
+			border: 1px solid #ccc;
+
+		}
+		form div table tr td{
+			height: 30px;
+			border: 1px solid #ccc;
+			text-align: center;
+		}
+		.btn{
+			width: 57px;
+			height: 34px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+		}
+		.cell{
+			float: left;
+			margin-left: 20px;
+		}
+		.bg1{
+			background-color: #eee;
+		}
+		.bg2{
+			margin: 0px 0px;
+			padding: 0px;
+			width: 78px;
+			background-color: #fff
+		}
+	</style>
+	<script src="/static/js/sha256.js"></script>
+	<script src="/static/js/ajax.js"></script>
+</head>
+<body>
+
+<ul>
+		   <li><a class="active" href="coinbase">Coinbase</a></li>
+		   <li><a href="tokens">Tokens</a></li>
+		   <li><a href="distributed">Distributed</a></li>
+		   <li><a href="blockchain">Blockchain</a></li>
+		   <li><a href="blockinfo">Block</a></li>
+	 	   <li><a href="hash">Hash</a></li>
+	 	   <li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 
+</ul>
+	<div class="container" id="vuemain">
+		<h1 style="margin-left: 20px;margin-top: 30px;font-weight: normal;">Coinbase Transactions</h1>
+		<h2 style="margin-left: 20px">Peer A</h2>
+		<div style="overflow-x: scroll;height: 680px;">
+		<div style="width: 100000000px;">
+		<div class="cell">
+			<div class="bg" id="div_a1">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" style="width: 336px" value="1" id="div_a1_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="text" value="139358" id="div_a1_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px" id="div_a1_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;" id="div_a1_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" readonly 
+							value="0000000000000000000000000000000000000000000000000000000000000000" id="div_a1_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input style="background-color:#eee" type="text" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_a1_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" value="Mine" id="div_a1_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第二个cell -->
+		<div class="cell">
+			<div class="bg" style="height: 600px;" id="div_a2">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" value="2" style="width: 336px" id="div_a2_bh">
+						</div>
+					</div>
+					
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" value="39207" id="div_a2_nonce">
+						</div>
+					</div>
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_a2_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;" id="div_a2_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.67" style="width:78px; border:none" id="div_a2_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Ripley" style="width:78px; border:none" id="div_a2_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Lambert" style="width:78px; border:none" id="div_a2_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="48.61" style="width:78px; border:none" id="div_a2_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Kane" style="width:78px; border:none" id="div_a2_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ash" style="width:78px; border:none" id="div_a2_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="6.15" style="width:78px; border:none" id="div_a2_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Parker" style="width:78px; border:none" id="div_a2_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Dallas" style="width:78px; border:none" id="div_a2_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.44" style="width:78px; border:none" id="div_a2_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hicks" style="width:78px; border:none" id="div_a2_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Newt" style="width:78px; border:none" id="div_a2_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="88.32" style="width:78px; border:none" id="div_a2_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Bishop" style="width:78px; border:none" id="div_a2_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Burke" style="width:78px; border:none" id="div_a2_t15"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="45.00" style="width:78px; border:none" id="div_a2_t16"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hudson" style="width:78px; border:none" id="div_a2_t17"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Gorman" style="width:78px; border:none" id="div_a2_t18"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="92.00" style="width:78px; border:none" id="div_a2_t19"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Vasquez" style="width:78px; border:none" id="div_a2_t20"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Apone" style="width:78px; border:none" id="div_a2_t21"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" name="" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_a2_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_a2_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_a2_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第三个cell -->
+		<div class="cell">
+			<div class="bg" id="div_a3">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="3" id="div_a3_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="13804" id="div_a3_nonce">
+						</div>
+					</div>
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_a3_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_a3_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.00" style="width:78px; border:none" id="div_a3_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Emily" style="width:78px; border:none" id="div_a3_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_a3_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="5.00" style="width:78px; border:none" id="div_a3_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Madison" style="width:78px; border:none" id="div_a3_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_a3_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="20.00" style="width:78px; border:none" id="div_a3_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lucas" style="width:78px; border:none" id="div_a3_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Grace" style="width:78px; border:none" id="div_a3_t9"></td>
+								</tr>
+								
+
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_a3_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_a3_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_a3_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第四个cell -->
+		<div class="cell">
+			<div class="bg" id="div_a4">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="4" id="div_a4_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="20688" id="div_a4_nonce">
+						</div>
+					</div>
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_a4_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;" id="div_a4_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="62.19" style="width:78px; border:none" id="div_a4_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_a4_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_a4_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="867.96" style="width:78px; border:none" id="div_a4_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_a4_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Strasser" style="width:78px; border:none" id="div_a4_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="276.15" style="width:78px; border:none" id="div_a4_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Victor Laszlo" style="width:78px; border:none" id="div_a4_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_a4_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.13" style="width:78px; border:none" id="div_a4_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_a4_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Sam" style="width:78px; border:none" id="div_a4_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="119.63" style="width:78px; border:none" id="div_a4_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_a4_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jan Brandel" style="width:78px; border:none" id="div_a4_t15"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_a4_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_a4_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_a4_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第五个cell -->
+		<div class="cell">
+			<div class="bg" id="div_a5">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="5" id="div_a5_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="33083" id="div_a5_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_a5_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_a5_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="14.12" style="width:78px; border:none" id="div_a5_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Denise Lovett" style="width:78px; border:none" id="div_a5_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Edmund Lovett" style="width:78px; border:none" id="div_a5_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="2,760.29" style="width:78px; border:none" id="div_a5_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lord Glendennin" style="width:78px; border:none" id="div_a5_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="John Moray" style="width:78px; border:none" id="div_a5_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="413.78" style="width:78px; border:none" id="div_a5_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Katherine Glend" style="width:78px; border:none" id="div_a5_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Miss Audrey" style="width:78px; border:none" id="div_a5_t9"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_a5_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000baa0cce9eb9432ce5b3081624be9fe47700fbe75bfd3bd276a03cc0dbe3a" id="div_a5_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_a5_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>		 
+		</div>
+		</div>
+		<h2 style="margin-left: 20px">Peer B</h2>
+		<div style="overflow-x: scroll;height: 680px;">
+		<div style="width: 100000000px">
+		<div class="cell">
+			<div class="bg" id="div_b1">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" style="width: 336px" value="1" id="div_b1_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="text" value="139358" id="div_b1_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_b1_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_b1_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" readonly 
+							value="0000000000000000000000000000000000000000000000000000000000000000" id="div_b1_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input style="background-color:#eee" type="text" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_b1_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" value="Mine" id="div_b1_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第二个cell -->
+		<div class="cell">
+			<div class="bg" style="height: 600px;" id="div_b2">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" value="2" style="width: 336px" id="div_b2_bh">
+						</div>
+					</div>
+					
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" value="39207" id="div_b2_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_b2_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_b2_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.67" style="width:78px; border:none" id="div_b2_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Ripley" style="width:78px; border:none" id="div_b2_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Lambert" style="width:78px; border:none" id="div_b2_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="48.61" style="width:78px; border:none" id="div_b2_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Kane" style="width:78px; border:none" id="div_b2_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ash" style="width:78px; border:none" id="div_b2_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="6.15" style="width:78px; border:none" id="div_b2_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Parker" style="width:78px; border:none" id="div_b2_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Dallas" style="width:78px; border:none" id="div_b2_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.44" style="width:78px; border:none" id="div_b2_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hicks" style="width:78px; border:none" id="div_b2_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Newt" style="width:78px; border:none" id="div_b2_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="88.32" style="width:78px; border:none" id="div_b2_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Bishop" style="width:78px; border:none" id="div_b2_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Burke" style="width:78px; border:none" id="div_b2_t15"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="45.00" style="width:78px; border:none" id="div_b2_t16"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hudson" style="width:78px; border:none" id="div_b2_t17"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Gorman" style="width:78px; border:none" id="div_b2_t18"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="92.00" style="width:78px; border:none" id="div_b2_t19"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Vasquez" style="width:78px; border:none" id="div_b2_t20"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Apone" style="width:78px; border:none" id="div_b2_t21"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" name="" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_b2_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_b2_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_b2_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第三个cell -->
+		<div class="cell">
+			<div class="bg" id="div_b3">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="3" id="div_b3_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="13804" id="div_b3_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_b3_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_b3_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.00" style="width:78px; border:none" id="div_b3_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Emily" style="width:78px; border:none" id="div_b3_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_b3_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="5.00" style="width:78px; border:none" id="div_b3_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Madison" style="width:78px; border:none" id="div_b3_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_b3_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="20.00" style="width:78px; border:none" id="div_b3_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lucas" style="width:78px; border:none" id="div_b3_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Grace" style="width:78px; border:none" id="div_b3_t9"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_b3_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_b3_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_b3_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第四个cell -->
+		<div class="cell">
+			<div class="bg" id="div_b4">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="4" id="div_b4_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="20688" id="div_b4_nonce">
+						</div>
+					</div>
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_b4_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_b4_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="62.19" style="width:78px; border:none" id="div_b4_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_b4_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_b4_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="867.96" style="width:78px; border:none" id="div_b4_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_b4_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Strasser" style="width:78px; border:none" id="div_b4_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="276.15" style="width:78px; border:none" id="div_b4_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Victor Laszlo" style="width:78px; border:none" id="div_b4_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_b4_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.13" style="width:78px; border:none" id="div_b4_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_b4_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Sam" style="width:78px; border:none" id="div_b4_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="119.63" style="width:78px; border:none" id="div_b4_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_b4_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jan Brandel" style="width:78px; border:none" id="div_b4_t15"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_b4_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_b4_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_b4_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第五个cell -->
+		<div class="cell">
+			<div class="bg" id="div_b5">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="5" id="div_b5_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="33083" id="div_b5_nonce">
+						</div>
+					</div>
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_b5_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_b5_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="14.12" style="width:78px; border:none" id="div_b5_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Denise Lovett" style="width:78px; border:none" id="div_b5_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Edmund Lovett" style="width:78px; border:none" id="div_b5_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="2,760.29" style="width:78px; border:none" id="div_b5_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lord Glendennin" style="width:78px; border:none" id="div_b5_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="John Moray" style="width:78px; border:none" id="div_b5_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="413.78" style="width:78px; border:none" id="div_b5_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Katherine Glend" style="width:78px; border:none" id="div_b5_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Miss Audrey" style="width:78px; border:none" id="div_b5_t9"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_b5_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000baa0cce9eb9432ce5b3081624be9fe47700fbe75bfd3bd276a03cc0dbe3a" id="div_b5_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_b5_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>	 
+		</div>
+		</div>
+<h2 style="margin-left: 20px">Peer C</h2>
+<div style="overflow-x: scroll;height: 680px;">
+		<div style="width: 100000000px">
+		<!-- 第一个cell -->
+		<div class="cell">
+			<div class="bg" id="div_c1">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" style="width: 336px" value="1" id="div_c1_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="text" value="139358" id="div_c1_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_c1_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_c1_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" readonly 
+							value="0000000000000000000000000000000000000000000000000000000000000000" id="div_c1_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input style="background-color:#eee" type="text" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_c1_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" value="Mine" id="div_c1_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第二个cell -->
+		<div class="cell">
+			<div class="bg" style="height: 600px;" id="div_c2">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="text" value="2" style="width: 336px" id="div_c2_bh">
+						</div>
+					</div>
+					
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" value="39207" id="div_c2_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_c2_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_c2_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.67" style="width:78px; border:none" id="div_c2_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Ripley" style="width:78px; border:none" id="div_c2_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Lambert" style="width:78px; border:none" id="div_c2_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="48.61" style="width:78px; border:none" id="div_c2_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Kane" style="width:78px; border:none" id="div_c2_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ash" style="width:78px; border:none" id="div_c2_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="6.15" style="width:78px; border:none" id="div_c2_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Parker" style="width:78px; border:none" id="div_c2_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Dallas" style="width:78px; border:none" id="div_c2_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.44" style="width:78px; border:none" id="div_c2_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hicks" style="width:78px; border:none" id="div_c2_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Newt" style="width:78px; border:none" id="div_c2_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="88.32" style="width:78px; border:none" id="div_c2_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Bishop" style="width:78px; border:none" id="div_c2_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Burke" style="width:78px; border:none" id="div_c2_t15"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="45.00" style="width:78px; border:none" id="div_c2_t16"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Hudson" style="width:78px; border:none" id="div_c2_t17"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Gorman" style="width:78px; border:none" id="div_c2_t18"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="92.00" style="width:78px; border:none" id="div_c2_t19"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Vasquez" style="width:78px; border:none" id="div_c2_t20"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Apone" style="width:78px; border:none" id="div_c2_t21"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="text" name="" readonly 
+							value="00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b" id="div_c2_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_c2_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_c2_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第三个cell -->
+		<div class="cell">
+			<div class="bg" id="div_c3">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="3" id="div_c3_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="13804" id="div_c3_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_c3_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_c3_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="10.00" style="width:78px; border:none" id="div_c3_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Emily" style="width:78px; border:none" id="div_c3_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_c3_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="5.00" style="width:78px; border:none" id="div_c3_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Madison" style="width:78px; border:none" id="div_c3_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jackson" style="width:78px; border:none" id="div_c3_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="20.00" style="width:78px; border:none" id="div_c3_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lucas" style="width:78px; border:none" id="div_c3_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Grace" style="width:78px; border:none" id="div_c3_t9"></td>
+								</tr>
+								
+
+							</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0" id="div_c3_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_c3_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_c3_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第四个cell -->
+		<div class="cell">
+			<div class="bg" id="div_c4">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="4" id="div_c4_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="20688" id="div_c4_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_c4_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_c4_coin2">
+							</div>							
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="62.19" style="width:78px; border:none" id="div_c4_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_c4_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_c4_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="867.96" style="width:78px; border:none" id="div_c4_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_c4_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Strasser" style="width:78px; border:none" id="div_c4_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="276.15" style="width:78px; border:none" id="div_c4_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Victor Laszlo" style="width:78px; border:none" id="div_c4_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Ilsa" style="width:78px; border:none" id="div_c4_t9"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="97.13" style="width:78px; border:none" id="div_c4_t10"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Rick" style="width:78px; border:none" id="div_c4_t11"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Sam" style="width:78px; border:none" id="div_c4_t12"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="119.63" style="width:78px; border:none" id="div_c4_t13"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Captain Louis Renault" style="width:78px; border:none" id="div_c4_t14"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Jan Brandel" style="width:78px; border:none" id="div_c4_t15"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c2c95f54a49b4f2bee7056a7dc3b7c1a408706c848b520e20eac75aaceb0" id="div_c4_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_c4_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_c4_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 第五个cell -->
+		<div class="cell">
+			<div class="bg" id="div_c5">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input type="" name="" style="width: 336px" value="5" id="div_c5_bh">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input type="" name="" value="33083" id="div_c5_nonce">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="margin-left: 0px;margin-right: 10px;">Coinbase:</label>
+						<div style="float:left;">
+							<div style="margin-left: 10px;">
+							<span style="width: 30px">$</span><input value="100.00" style="width:135px;" id="div_c5_coin1"><span style="width:30px">-></span><input value="Ansers" name="" style="width:135px;"  id="div_c5_coin2">
+							</div>							
+						</div>
+					</div>
+					<div  class="col">
+						<label style="float: left;">Tx:</label>
+						<div style="float: left;">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="14.12" style="width:78px; border:none" id="div_c5_t1"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Denise Lovett" style="width:78px; border:none" id="div_c5_t2"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Edmund Lovett" style="width:78px; border:none" id="div_c5_t3"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="2,760.29" style="width:78px; border:none" id="div_c5_t4"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Lord Glendennin" style="width:78px; border:none" id="div_c5_t5"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="John Moray" style="width:78px; border:none" id="div_c5_t6"></td>
+								</tr>
+								<tr>
+									<td class="bg1" style="width: 30px">$</td>
+									<td class="bg2"><input value="413.78" style="width:78px; border:none" id="div_c5_t7"></td>
+									<td class="bg1">From:</td>
+									<td class="bg2"><input value="Katherine Glend" style="width:78px; border:none" id="div_c5_t8"></td>
+									<td class="bg1" style="width: 30px">-></td>
+									<td class="bg2"><input value="Miss Audrey" style="width:78px; border:none" id="div_c5_t9"></td>
+								</tr>
+								</table>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Prev:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000c03019ed59586405750968888fb65256e82492480d9fe0a6bd2f5e86b5ca" id="div_c5_pre">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" name="" readonly 
+							value="0000baa0cce9eb9432ce5b3081624be9fe47700fbe75bfd3bd276a03cc0dbe3a" id="div_c5_hash">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" name="" value="Mine" id="div_c5_btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+				 
+		</div>
+		</div>
+	</div>
+
+	<script>
+		window.onload=function(){
+			document.getElementById("div_a1").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_a2").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_a3").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_a4").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_a5").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b1").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b2").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b3").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b4").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b5").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c1").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c2").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c3").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c4").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c5").style.backgroundColor="rgb(223,240,216)"
+		}
+		function gettabledata(flag){
+			var data
+			if(flag == 1){
+				 	data=document.getElementById("div_a1_coin1").value+document.getElementById("div_a1_coin2").value
+			}
+			if(flag == 2){
+					data=document.getElementById("div_a2_t1").value+document.getElementById("div_a2_t2").value
+						+document.getElementById("div_a2_t3").value+document.getElementById("div_a2_t4").value
+						+document.getElementById("div_a2_t5").value+document.getElementById("div_a2_t6").value
+						+document.getElementById("div_a2_t7").value+document.getElementById("div_a2_t8").value
+						+document.getElementById("div_a2_t9").value+document.getElementById("div_a2_t10").value
+						+document.getElementById("div_a2_t11").value+document.getElementById("div_a2_t12").value
+						+document.getElementById("div_a2_t13").value+document.getElementById("div_a2_t14").value
+						+document.getElementById("div_a2_t15").value+document.getElementById("div_a2_t16").value
+						+document.getElementById("div_a2_t17").value+document.getElementById("div_a2_t18").value
+						+document.getElementById("div_a2_t19").value+document.getElementById("div_a2_t20").value
+						+document.getElementById("div_a2_t21").value
+			}
+			if(flag ==3){
+					data=document.getElementById("div_a3_t1").value+document.getElementById("div_a3_t2").value
+						+document.getElementById("div_a3_t3").value+document.getElementById("div_a3_t4").value
+						+document.getElementById("div_a3_t5").value+document.getElementById("div_a3_t6").value
+						+document.getElementById("div_a3_t7").value+document.getElementById("div_a3_t8").value
+						+document.getElementById("div_a3_t9").value
+			}
+			if(flag ==4){
+					data=document.getElementById("div_a4_t1").value+document.getElementById("div_a4_t2").value
+						+document.getElementById("div_a4_t3").value+document.getElementById("div_a4_t4").value
+						+document.getElementById("div_a4_t5").value+document.getElementById("div_a4_t6").value
+						+document.getElementById("div_a4_t7").value+document.getElementById("div_a4_t8").value
+						+document.getElementById("div_a4_t9").value+document.getElementById("div_a4_t10").value
+						+document.getElementById("div_a4_t11").value+document.getElementById("div_a4_t12").value
+						+document.getElementById("div_a4_t13").value+document.getElementById("div_a4_t14").value
+						+document.getElementById("div_a4_t15").value
+			}
+			if(flag ==5){
+					data=document.getElementById("div_a5_t1").value+document.getElementById("div_a5_t2").value
+						+document.getElementById("div_a5_t3").value+document.getElementById("div_a5_t4").value
+						+document.getElementById("div_a5_t5").value+document.getElementById("div_a5_t6").value
+						+document.getElementById("div_a5_t7").value+document.getElementById("div_a5_t8").value
+						+document.getElementById("div_a5_t9").value	
+			}
+			if(flag ==6){
+					data=document.getElementById("div_b1_coin1").value+document.getElementById("div_b1_coin2").value
+			}
+			if(flag ==7){
+					data=document.getElementById("div_b2_t1").value+document.getElementById("div_b2_t2").value
+						+document.getElementById("div_b2_t3").value+document.getElementById("div_b2_t4").value
+						+document.getElementById("div_b2_t5").value+document.getElementById("div_b2_t6").value
+						+document.getElementById("div_b2_t7").value+document.getElementById("div_b2_t8").value
+						+document.getElementById("div_b2_t9").value+document.getElementById("div_b2_t10").value
+						+document.getElementById("div_b2_t11").value+document.getElementById("div_b2_t12").value
+						+document.getElementById("div_b2_t13").value+document.getElementById("div_b2_t14").value
+						+document.getElementById("div_b2_t15").value+document.getElementById("div_b2_t16").value
+						+document.getElementById("div_b2_t17").value+document.getElementById("div_b2_t18").value
+						+document.getElementById("div_b2_t19").value+document.getElementById("div_b2_t20").value
+						+document.getElementById("div_b2_t21").value
+			}
+			if(flag ==8){
+					data=document.getElementById("div_b3_t1").value+document.getElementById("div_b3_t2").value
+						+document.getElementById("div_b3_t3").value+document.getElementById("div_b3_t4").value
+						+document.getElementById("div_b3_t5").value+document.getElementById("div_b3_t6").value
+						+document.getElementById("div_b3_t7").value+document.getElementById("div_b3_t8").value
+						+document.getElementById("div_b3_t9").value
+			}
+			if(flag ==9){
+					data=document.getElementById("div_b4_t1").value+document.getElementById("div_b4_t2").value
+						+document.getElementById("div_b4_t3").value+document.getElementById("div_b4_t4").value
+						+document.getElementById("div_b4_t5").value+document.getElementById("div_b4_t6").value
+						+document.getElementById("div_b4_t7").value+document.getElementById("div_b4_t8").value
+						+document.getElementById("div_b4_t9").value+document.getElementById("div_b4_t10").value
+						+document.getElementById("div_b4_t11").value+document.getElementById("div_b4_t12").value
+						+document.getElementById("div_b4_t13").value+document.getElementById("div_b4_t14").value
+						+document.getElementById("div_b4_t15").value
+			}
+			if(flag ==10){
+					data=document.getElementById("div_b5_t1").value+document.getElementById("div_b5_t2").value
+						+document.getElementById("div_b5_t3").value+document.getElementById("div_b5_t4").value
+						+document.getElementById("div_b5_t5").value+document.getElementById("div_b5_t6").value
+						+document.getElementById("div_b5_t7").value+document.getElementById("div_b5_t8").value
+						+document.getElementById("div_b5_t9").value	
+			}
+			if(flag ==11){
+					data=document.getElementById("div_c1_coin1").value+document.getElementById("div_c1_coin2").value
+			}
+			if(flag ==12){
+					data=document.getElementById("div_c2_t1").value+document.getElementById("div_c2_t2").value
+						+document.getElementById("div_c2_t3").value+document.getElementById("div_c2_t4").value
+						+document.getElementById("div_c2_t5").value+document.getElementById("div_c2_t6").value
+						+document.getElementById("div_c2_t7").value+document.getElementById("div_c2_t8").value
+						+document.getElementById("div_c2_t9").value+document.getElementById("div_c2_t10").value
+						+document.getElementById("div_c2_t11").value+document.getElementById("div_c2_t12").value
+						+document.getElementById("div_c2_t13").value+document.getElementById("div_c2_t14").value
+						+document.getElementById("div_c2_t15").value+document.getElementById("div_c2_t16").value
+						+document.getElementById("div_c2_t17").value+document.getElementById("div_c2_t18").value
+						+document.getElementById("div_c2_t19").value+document.getElementById("div_c2_t20").value
+						+document.getElementById("div_c2_t21").value
+			}
+			if(flag ==13){
+					data=document.getElementById("div_c3_t1").value+document.getElementById("div_c3_t2").value
+						+document.getElementById("div_c3_t3").value+document.getElementById("div_c3_t4").value
+						+document.getElementById("div_c3_t5").value+document.getElementById("div_c3_t6").value
+						+document.getElementById("div_c3_t7").value+document.getElementById("div_c3_t8").value
+						+document.getElementById("div_c3_t9").value
+			}
+			if(flag ==14){
+					data=document.getElementById("div_c4_t1").value+document.getElementById("div_c4_t2").value
+						+document.getElementById("div_c4_t3").value+document.getElementById("div_c4_t4").value
+						+document.getElementById("div_c4_t5").value+document.getElementById("div_c4_t6").value
+						+document.getElementById("div_c4_t7").value+document.getElementById("div_c4_t8").value
+						+document.getElementById("div_c4_t9").value+document.getElementById("div_c4_t10").value
+						+document.getElementById("div_c4_t11").value+document.getElementById("div_c4_t12").value
+						+document.getElementById("div_c4_t13").value+document.getElementById("div_c4_t14").value
+						+document.getElementById("div_c4_t15").value
+			}
+			if(flag ==15){
+					data=document.getElementById("div_c5_t1").value+document.getElementById("div_c5_t2").value
+						+document.getElementById("div_c5_t3").value+document.getElementById("div_c5_t4").value
+						+document.getElementById("div_c5_t5").value+document.getElementById("div_c5_t6").value
+						+document.getElementById("div_c5_t7").value+document.getElementById("div_c5_t8").value
+						+document.getElementById("div_c5_t9").value	
+			}
+		return data
+	}
+		function calhash(flag){
+			if(flag == 1){
+				var bh=document.getElementById("div_a1_bh").value
+				var nc=document.getElementById("div_a1_nonce").value
+				var co1=document.getElementById("div_a1_coin1").value
+				var co2=document.getElementById("div_a1_coin2").value
+				var pr=document.getElementById("div_a1_pre").value				
+				var data=gettabledata(1)
+				document.getElementById("div_a1_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_a2_pre").value=document.getElementById("div_a1_hash").value
+				calhash(2)
+				document.getElementById("div_a1").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 2){
+				var bh=document.getElementById("div_a2_bh").value
+				var nc=document.getElementById("div_a2_nonce").value
+				var co1=document.getElementById("div_a2_coin1").value
+				var co2=document.getElementById("div_a2_coin2").value
+				var pr=document.getElementById("div_a2_pre").value
+				var data=gettabledata(2)
+				document.getElementById("div_a2_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_a3_pre").value=document.getElementById("div_a2_hash").value
+				calhash(3)
+				document.getElementById("div_a2").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 3){
+				var bh=document.getElementById("div_a3_bh").value
+				var nc=document.getElementById("div_a3_nonce").value
+				var co1=document.getElementById("div_a3_coin1").value
+				var co2=document.getElementById("div_a3_coin2").value
+				var pr=document.getElementById("div_a3_pre").value
+				var data=gettabledata(3)
+				document.getElementById("div_a3_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_a4_pre").value=document.getElementById("div_a3_hash").value
+				calhash(4)
+				document.getElementById("div_a3").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 4){
+				var bh=document.getElementById("div_a4_bh").value
+				var nc=document.getElementById("div_a4_nonce").value
+				var co1=document.getElementById("div_a4_coin1").value
+				var co2=document.getElementById("div_a4_coin2").value
+				var pr=document.getElementById("div_a4_pre").value
+				var data=gettabledata(4)
+				document.getElementById("div_a4_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_a5_pre").value=document.getElementById("div_a4_hash").value
+				calhash(5)
+				document.getElementById("div_a4").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 5){
+				var bh=document.getElementById("div_a5_bh").value
+				var nc=document.getElementById("div_a5_nonce").value
+				var co1=document.getElementById("div_a5_coin1").value
+				var co2=document.getElementById("div_a5_coin2").value
+				var pr=document.getElementById("div_a5_pre").value
+				var data=gettabledata(5)
+				document.getElementById("div_a5_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_a5").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 6){
+				var bh=document.getElementById("div_b1_bh").value
+				var nc=document.getElementById("div_b1_nonce").value
+				var co1=document.getElementById("div_b1_coin1").value
+				var co2=document.getElementById("div_b1_coin2").value
+				var pr=document.getElementById("div_b1_pre").value
+				var data=gettabledata(6)
+				document.getElementById("div_b1_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_b2_pre").value=document.getElementById("div_b1_hash").value
+				calhash(7)
+				document.getElementById("div_b1").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 7){
+				var bh=document.getElementById("div_b2_bh").value
+				var nc=document.getElementById("div_b2_nonce").value
+				var co1=document.getElementById("div_b2_coin1").value
+				var co2=document.getElementById("div_b2_coin2").value
+				var pr=document.getElementById("div_b2_pre").value
+				var data=gettabledata(7)
+				document.getElementById("div_b2_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_b3_pre").value=document.getElementById("div_b2_hash").value
+				calhash(8)
+				document.getElementById("div_b2").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 8){
+				var bh=document.getElementById("div_b3_bh").value
+				var nc=document.getElementById("div_b3_nonce").value
+				var co1=document.getElementById("div_b3_coin1").value
+				var co2=document.getElementById("div_b3_coin2").value
+				var pr=document.getElementById("div_b3_pre").value
+				var data=gettabledata(8)
+				document.getElementById("div_b3_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_b4_pre").value=document.getElementById("div_b3_hash").value
+				calhash(9)
+				document.getElementById("div_b3").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 9){
+				var bh=document.getElementById("div_b4_bh").value
+				var nc=document.getElementById("div_b4_nonce").value
+				var co1=document.getElementById("div_b4_coin1").value
+				var co2=document.getElementById("div_b4_coin2").value
+				var pr=document.getElementById("div_b4_pre").value
+				var data=gettabledata(9)
+				document.getElementById("div_b4_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_b5_pre").value=document.getElementById("div_b4_hash").value
+				calhash(10)
+				document.getElementById("div_b4").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 10){
+				var bh=document.getElementById("div_b5_bh").value
+				var nc=document.getElementById("div_b5_nonce").value
+				var co1=document.getElementById("div_b5_coin1").value
+				var co2=document.getElementById("div_b5_coin2").value
+				var pr=document.getElementById("div_b5_pre").value
+				var data=gettabledata(10)
+				document.getElementById("div_b5_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_b5").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 11){
+				var bh=document.getElementById("div_c1_bh").value
+				var nc=document.getElementById("div_c1_nonce").value
+				var co1=document.getElementById("div_c1_coin1").value
+				var co2=document.getElementById("div_c1_coin2").value
+				var pr=document.getElementById("div_c1_pre").value
+				var data=gettabledata(11)
+				document.getElementById("div_c1_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_c2_pre").value=document.getElementById("div_c1_hash").value
+				calhash(12)
+				document.getElementById("div_c1").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 12){
+				var bh=document.getElementById("div_c2_bh").value
+				var nc=document.getElementById("div_c2_nonce").value
+				var co1=document.getElementById("div_c2_coin1").value
+				var co2=document.getElementById("div_c2_coin2").value
+				var pr=document.getElementById("div_c2_pre").value
+				var data=gettabledata(12)
+				document.getElementById("div_c2_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_c3_pre").value=document.getElementById("div_c2_hash").value
+				calhash(13)
+				document.getElementById("div_c2").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 13){
+				var bh=document.getElementById("div_c3_bh").value
+				var nc=document.getElementById("div_c3_nonce").value
+				var co1=document.getElementById("div_c3_coin1").value
+				var co2=document.getElementById("div_c3_coin2").value
+				var pr=document.getElementById("div_c3_pre").value
+				var data=gettabledata(13)
+				document.getElementById("div_c3_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_c4_pre").value=document.getElementById("div_c3_hash").value
+				calhash(14)
+				document.getElementById("div_c3").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 14){
+				var bh=document.getElementById("div_c4_bh").value
+				var nc=document.getElementById("div_c4_nonce").value
+				var co1=document.getElementById("div_c4_coin1").value
+				var co2=document.getElementById("div_c4_coin2").value
+				var pr=document.getElementById("div_c4_pre").value
+				var data=gettabledata(14)
+				document.getElementById("div_c4_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_c5_pre").value=document.getElementById("div_c4_hash").value
+				calhash(15)
+				document.getElementById("div_c4").style.backgroundColor="rgb(250,220,220)"
+			}
+			if(flag == 15){
+				var bh=document.getElementById("div_c5_bh").value
+				var nc=document.getElementById("div_c5_nonce").value
+				var co1=document.getElementById("div_c5_coin1").value
+				var co2=document.getElementById("div_c5_coin2").value
+				var pr=document.getElementById("div_c5_pre").value
+				var data=gettabledata(15)
+				document.getElementById("div_c5_hash").value=sha256_digest(bh+nc+data+pr+co1+co2)
+				document.getElementById("div_c5").style.backgroundColor="rgb(250,220,220)"
+			}
+		}
+		document.getElementById("div_a1_bh").addEventListener("input",function(){calhash(1)})
+		document.getElementById("div_a1_nonce").addEventListener("input",function(){calhash(1)})
+		document.getElementById("div_a1_coin1").addEventListener("input",function(){calhash(1)})
+		document.getElementById("div_a1_coin2").addEventListener("input",function(){calhash(1)})
+		document.getElementById("div_a2_bh").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_nonce").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_coin1").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_coin2").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t1").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t2").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t3").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t4").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t5").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t6").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t7").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t8").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t9").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t10").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t11").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t12").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t13").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t14").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t15").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t16").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t17").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t18").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t19").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t20").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a2_t21").addEventListener("input",function(){calhash(2)})
+		document.getElementById("div_a3_bh").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_nonce").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_coin1").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_coin2").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t1").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t2").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t3").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t4").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t5").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t6").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t7").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t8").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a3_t9").addEventListener("input",function(){calhash(3)})
+		document.getElementById("div_a4_bh").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_nonce").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_coin1").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_coin2").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t1").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t2").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t3").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t4").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t5").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t6").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t7").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t8").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t9").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t10").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t11").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t12").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t13").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t14").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a4_t15").addEventListener("input",function(){calhash(4)})
+		document.getElementById("div_a5_bh").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_nonce").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_coin1").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_coin2").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t1").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t2").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t3").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t4").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t5").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t6").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t7").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t8").addEventListener("input",function(){calhash(5)})
+		document.getElementById("div_a5_t9").addEventListener("input",function(){calhash(5)})
+		//--
+		document.getElementById("div_b1_bh").addEventListener("input",function(){calhash(6)})
+		document.getElementById("div_b1_nonce").addEventListener("input",function(){calhash(6)})
+		document.getElementById("div_b1_coin1").addEventListener("input",function(){calhash(6)})
+		document.getElementById("div_b1_coin2").addEventListener("input",function(){calhash(6)})
+		document.getElementById("div_b2_bh").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_nonce").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_coin1").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_coin2").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t1").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t2").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t3").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t4").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t5").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t6").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t7").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t8").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t9").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t10").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t11").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t12").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t13").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t14").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t15").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t16").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t17").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t18").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t19").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t20").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b2_t21").addEventListener("input",function(){calhash(7)})
+		document.getElementById("div_b3_bh").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_nonce").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_coin1").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_coin2").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t1").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t2").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t3").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t4").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t5").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t6").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t7").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t8").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b3_t9").addEventListener("input",function(){calhash(8)})
+		document.getElementById("div_b4_bh").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_nonce").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_coin1").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_coin2").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t1").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t2").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t3").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t4").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t5").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t6").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t7").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t8").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t9").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t10").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t11").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t12").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t13").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t14").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b4_t15").addEventListener("input",function(){calhash(9)})
+		document.getElementById("div_b5_bh").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_nonce").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_coin1").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_coin2").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t1").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t2").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t3").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t4").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t5").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t6").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t7").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t8").addEventListener("input",function(){calhash(10)})
+		document.getElementById("div_b5_t9").addEventListener("input",function(){calhash(10)})
+		//----
+		document.getElementById("div_c1_bh").addEventListener("input",function(){calhash(11)})
+		document.getElementById("div_c1_nonce").addEventListener("input",function(){calhash(11)})
+		document.getElementById("div_c1_coin1").addEventListener("input",function(){calhash(11)})
+		document.getElementById("div_c1_coin2").addEventListener("input",function(){calhash(11)})
+		document.getElementById("div_c2_bh").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_nonce").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_coin1").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_coin2").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t1").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t2").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t3").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t4").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t5").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t6").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t7").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t8").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t9").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t10").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t11").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t12").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t13").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t14").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t15").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t16").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t17").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t18").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t19").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t20").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c2_t21").addEventListener("input",function(){calhash(12)})
+		document.getElementById("div_c3_bh").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_nonce").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_coin1").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_coin2").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t1").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t2").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t3").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t4").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t5").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t6").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t7").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t8").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c3_t9").addEventListener("input",function(){calhash(13)})
+		document.getElementById("div_c4_bh").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_nonce").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_coin1").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_coin2").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t1").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t2").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t3").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t4").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t5").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t6").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t7").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t8").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t9").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t10").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t11").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t12").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t13").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t14").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c4_t15").addEventListener("input",function(){calhash(14)})
+		document.getElementById("div_c5_bh").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_nonce").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_coin1").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_coin2").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t1").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t2").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t3").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t4").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t5").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t6").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t7").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t8").addEventListener("input",function(){calhash(15)})
+		document.getElementById("div_c5_t9").addEventListener("input",function(){calhash(15)})
+		//---
+		document.getElementById("div_a1_btn").onclick=function(){
+			var bh=document.getElementById("div_a1_bh").value
+			var da=gettabledata(1)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_a1_nonce").value=data.nonce
+				document.getElementById("div_a1_hash").value=data.hashdata
+				document.getElementById("div_a2_pre").value=document.getElementById("div_a1_hash").value
+				calhash(2)
+				document.getElementById("div_a1").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_a2_btn").onclick=function(){
+			var bh=document.getElementById("div_a2_bh").value
+			var da=gettabledata(2)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_a2_nonce").value=data.nonce
+				document.getElementById("div_a2_hash").value=data.hashdata
+				document.getElementById("div_a3_pre").value=document.getElementById("div_a2_hash").value
+				calhash(3)
+				document.getElementById("div_a2").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_a3_btn").onclick=function(){
+			var bh=document.getElementById("div_a3_bh").value
+			var da=gettabledata(3)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_a3_nonce").value=data.nonce
+				document.getElementById("div_a3_hash").value=data.hashdata
+				document.getElementById("div_a4_pre").value=document.getElementById("div_a3_hash").value
+				calhash(4)
+				document.getElementById("div_a3").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_a4_btn").onclick=function(){
+			var bh=document.getElementById("div_a4_bh").value
+			var da=gettabledata(4)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_a4_nonce").value=data.nonce
+				document.getElementById("div_a4_hash").value=data.hashdata
+				document.getElementById("div_a5_pre").value=document.getElementById("div_a4_hash").value
+				calhash(5)
+				document.getElementById("div_a4").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_a5_btn").onclick=function(){
+			var bh=document.getElementById("div_a5_bh").value
+			var da=gettabledata(5)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_a5_nonce").value=data.nonce
+				document.getElementById("div_a5_hash").value=data.hashdata
+				document.getElementById("div_a5").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		//--
+		document.getElementById("div_b1_btn").onclick=function(){
+			var bh=document.getElementById("div_b1_bh").value
+			var da=gettabledata(6)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_b1_nonce").value=data.nonce
+				document.getElementById("div_b1_hash").value=data.hashdata
+				document.getElementById("div_b2_pre").value=document.getElementById("div_b1_hash").value
+				calhash(7)
+				document.getElementById("div_b1").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_b2_btn").onclick=function(){
+			var bh=document.getElementById("div_b2_bh").value
+			var da=gettabledata(7)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_b2_nonce").value=data.nonce
+				document.getElementById("div_b2_hash").value=data.hashdata
+				document.getElementById("div_b3_pre").value=document.getElementById("div_b2_hash").value
+				calhash(8)
+				document.getElementById("div_b2").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_b3_btn").onclick=function(){
+			var bh=document.getElementById("div_b3_bh").value
+			var da=gettabledata(8)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_b3_nonce").value=data.nonce
+				document.getElementById("div_b3_hash").value=data.hashdata
+				document.getElementById("div_b4_pre").value=document.getElementById("div_b3_hash").value
+				calhash(9)
+				document.getElementById("div_b3").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_b4_btn").onclick=function(){
+			var bh=document.getElementById("div_b4_bh").value
+			var da=gettabledata(9)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_b4_nonce").value=data.nonce
+				document.getElementById("div_b4_hash").value=data.hashdata
+				document.getElementById("div_b5_pre").value=document.getElementById("div_b4_hash").value
+				calhash(10)
+				document.getElementById("div_b4").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_b5_btn").onclick=function(){
+			var bh=document.getElementById("div_b5_bh").value
+			var da=gettabledata(10)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_b5_nonce").value=data.nonce
+				document.getElementById("div_b5_hash").value=data.hashdata
+				document.getElementById("div_b5").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		//---
+		document.getElementById("div_c1_btn").onclick=function(){
+			var bh=document.getElementById("div_c1_bh").value
+			var da=gettabledata(11)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_c1_nonce").value=data.nonce
+				document.getElementById("div_c1_hash").value=data.hashdata
+				document.getElementById("div_c2_pre").value=document.getElementById("div_c1_hash").value
+				calhash(12)
+				document.getElementById("div_c1").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_c2_btn").onclick=function(){
+			var bh=document.getElementById("div_c2_bh").value
+			var da=gettabledata(12)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_c2_nonce").value=data.nonce
+				document.getElementById("div_c2_hash").value=data.hashdata
+				document.getElementById("div_c3_pre").value=document.getElementById("div_c2_hash").value
+				calhash(13)
+				document.getElementById("div_c2").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_c3_btn").onclick=function(){
+			var bh=document.getElementById("div_c3_bh").value
+			var da=gettabledata(13)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_c3_nonce").value=data.nonce
+				document.getElementById("div_c3_hash").value=data.hashdata
+				document.getElementById("div_c4_pre").value=document.getElementById("div_c3_hash").value
+				calhash(14)
+				document.getElementById("div_c3").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_c4_btn").onclick=function(){
+			var bh=document.getElementById("div_c4_bh").value
+			var da=gettabledata(14)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_c4_nonce").value=data.nonce
+				document.getElementById("div_c4_hash").value=data.hashdata
+				document.getElementById("div_c5_pre").value=document.getElementById("div_c4_hash").value
+				calhash(15)
+				document.getElementById("div_c4").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("div_c5_btn").onclick=function(){
+			var bh=document.getElementById("div_c5_bh").value
+			var da=gettabledata(15)
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/coinbase',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("div_c5_nonce").value=data.nonce
+				document.getElementById("div_c5_hash").value=data.hashdata
+				document.getElementById("div_c5").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+	</script>
+</body>
+</html>

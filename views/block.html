@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>block</title>
+	<style type="text/css">
+	ul {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #111;
+}
+		.container{
+			padding: 10px;
+		}
+		.bg{
+			padding: 20px;
+			background: rgb(223,240,216);
+			border-radius: 5px;
+			border:1px solid #e3e3e3;
+			width: 1140px;
+			height: 500px;
+		}
+		.col{
+			overflow: hidden;
+			padding: 10px 0;
+		}
+		.col label{
+			float: left;
+			width: 90px;
+			height: 30px;
+			line-height: 30px;
+			font-weight: bolder;
+			margin-left: 55px;
+		}
+		form div span{
+			padding: 9px 12px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px
+		}
+		form div input{
+			width: 910px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+		form div textarea{
+			width: 910px;
+			height: 215px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			overflow: hidden;
+		}
+		.btn{
+			width: 57px;
+			height: 34px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+		}
+		.cell{
+			float: left;
+			margin-left: 100px;
+		}
+	</style>
+	<script src="/static/js/sha256.js"></script>
+	<script src="/static/js/ajax.js"></script>
+</head>
+<body>
+
+<ul>
+		   <li><a href="coinbase">Coinbase</a></li>
+		   <li><a href="tokens">Tokens</a></li>
+		   <li><a href="distributed">Distributed</a></li>
+		   <li><a href="blockchain">Blockchain</a></li>
+		   <li><a class="active" href="blockinfo">Block</a></li>
+	 	   <li><a href="hash">Hash</a></li>
+		   <li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 
+</ul>
+	<div class="container" id="vuemain">
+		<h1 style="margin-left: 95px;margin-top: 30px; font-weight: normal;">Block</h1>
+
+		<!-- 第一个cell -->
+		<div class="cell">
+			<div class="bg" id="div1">
+				<form>
+					<div class="col">
+						<label>Block:</label>
+						<div style="float: left;">
+							<span>#</span><input style="width: 877px" id="block" value="1">
+						</div>
+					</div>
+						
+					<div  class="col">
+						<label style="float: left;">TimeStamp:</label>
+						<div style="float: left;">
+							<input  id="TimeStamp" readonly>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Nonce:</label>
+						<div style="float: left;">
+							<input  id="nonce" value="72608">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input id="hash" readonly value="0000f727854b50bb95c054b39c1fe5c92e5ebcfa4bcb5dc279f56aa96a365e5a">
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Data:</label>
+						<div style="float: left;">
+							<textarea id="datacontent">
+								
+							</textarea>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;"></label>
+						<div style="float: left;">
+							<input class="btn" type="button" id="btn1" value="Mine">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload=function () {
+			document.getElementById("div1").style.backgroundColor="rgb(223,240,216)"
+		    	var date = new Date();
+			    var seperator1 = "-";
+			    var seperator2 = ":";
+			    var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				var hour=date.getHours();
+				var min=date.getMinutes()
+				var sec=date.getSeconds()
+			    if (month >= 1 && month <= 9) {
+			        month = "0" + month;
+			    }
+			    if (strDate >= 0 && strDate <= 9) {
+			        strDate = "0" + strDate;
+				}
+				if(hour >=0 && hour <=9){
+					hour = "0" + hour;
+				}
+				if(min >=0 && min <=9){
+					min = "0" + min;
+				}
+				if(sec >=0 && sec <=9){
+					sec="0"+sec;
+				}
+			    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+			            + " " + hour + seperator2 + min
+			            + seperator2 + sec;
+				document.getElementById("TimeStamp").value= currentdate;
+			}
+		function calhash(){
+			var bl=document.getElementById("block").value
+			var no=document.getElementById("nonce").value
+			var ts=document.getElementById("TimeStamp").value
+			var da=document.getElementById("datacontent").value
+			document.getElementById("hash").value=sha256_digest(bl+no+ts+da)
+			document.getElementById("div1").style.backgroundColor="rgb(250,220,220)"
+		}
+		document.getElementById("block").addEventListener("input",function(){
+			calhash()
+		})
+		document.getElementById("nonce").addEventListener("input",function(){
+			calhash()
+		})
+		document.getElementById("datacontent").addEventListener("input",function(){
+			calhash()
+		})
+		document.getElementById("btn1").onclick=function(){
+			var bl=document.getElementById("block").value
+			var ts=document.getElementById("TimeStamp").value
+			var da=document.getElementById("datacontent").value
+			var obj={
+				Bl:bl,
+				Ts:ts,
+				Da:da	
+			}
+			ajaxpost("/blockinfo",obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("nonce").value=data.nonce
+				document.getElementById("hash").value=data.datas
+				document.getElementById("div1").style.backgroundColor="rgb(223,240,216)"
+			})
+		}
+	</script>
+</body>
+</html>

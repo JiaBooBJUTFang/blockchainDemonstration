@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>hash</title>
+	<style type="text/css">
+	ul {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #111;
+}
+		.container{
+			padding: 10px;
+		}
+		.bg{
+			padding: 20px;
+			background: rgb(223,240,216);
+			border-radius: 5px;
+			border:1px solid #e3e3e3;
+			width: 1140px;
+			height: 318px;
+		}
+		.col{
+			overflow: hidden;
+			padding: 10px 0;
+		}
+		.col label{
+			float: left;
+			width: 60px;
+			height: 30px;
+			line-height: 30px;
+			font-weight: bolder;
+			margin-left: 155px;
+		}
+		form div input{
+			width: 910px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+		form div textarea{
+			width: 910px;
+			height: 215px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			overflow: hidden;
+		}
+		.cell{
+			float: left;
+			margin-left: 100px;
+		}
+	</style>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<!-- <script src="http://www.bichlmeier.info/sha256.js"></script> -->
+	<script src="/static/js/sha256.js"></script>
+	<script src="/static/js/vue.js"></script>
+</head>
+<body>
+
+<ul>
+		   <li><a href="coinbase">Coinbase</a></li>
+		   <li><a href="tokens">Tokens</a></li>
+		   <li><a href="distributed">Distributed</a></li>
+		   <li><a href="blockchain">Blockchain</a></li>
+		   <li><a href="blockinfo">Block</a></li>
+	 	   <li><a class="active" href="hash">Hash</a></li>
+<li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 
+</ul>
+	<div class="container" id="vuemain">
+		<h1 style="margin-left: 100px;margin-top: 30px;font-weight: normal;">SHA256 Hash</h1>
+
+		<!-- 第一个cell -->
+		<div class="cell">
+			<div class="bg">
+				<form>
+					<div  class="col">
+						<label style="float: left;">Data:</label>
+						<div style="float: left;">
+							<textarea v-model="datacontent">
+							</textarea>
+						</div>
+					</div>
+
+					<div  class="col">
+						<label style="float: left;">Hash:</label>
+						<div style="float: left;">
+							<input type="" readonly  v-model="hash">
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	var watchExampleVM = new Vue({
+	    el: '#vuemain',
+		data: {
+			datacontent:"",
+		    hash:"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+	    },
+    	created: function(){
+	    	
+	    },
+	    watch: {
+		    // 如果 `question` 发生改变，这个函数就会运行
+		    datacontent: function () {
+		        $('.bg').css("background-color","rgb(250,220,220)");
+		    },
+		    datacontent:function(){
+		    	this.hashdata();
+		    }
+		    
+	    },
+	    methods: {
+	    	hashdata:function(){
+	    		this.hash=sha256_digest(this.datacontent)
+	    	}
+		}
+	})
+	</script>
+
+</body>
+</html>

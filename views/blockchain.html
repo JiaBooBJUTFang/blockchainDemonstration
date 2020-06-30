@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>blockchain</title>
+	<style type="text/css">
+	ul {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+		.active {
+    		background-color: #111;
+		}
+		.container{
+			padding: 10px;
+		}
+		.bg{			
+			/* background: rgb(223,240,216); */
+			padding: 20px;
+			border-radius: 5px;
+			border:1px solid #e3e3e3;
+			width: 445px;
+			height: 515px;
+		}
+		.col{
+			overflow: hidden;
+			padding: 10px 0;
+		}
+		.col label{
+			float: left;
+			width: 60px;
+			height: 30px;
+			line-height: 30px;
+			font-weight: bolder;
+		}
+		form div span{
+			padding: 9px 12px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px
+		}
+		form div input{
+			width: 370px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+		form div textarea{
+			width: 370px;
+			height: 215px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+			overflow: hidden;
+		}
+		.btn{
+			width: 57px;
+			height: 34px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+		}
+		.cell{
+			float: left;
+			margin-left: 20px;
+		}
+		.background_red{
+			background-color: rgb(250,220,220);
+			background-color:lightgrey;
+		}
+		.background_blue{
+			background-color: rgb(223,240,216);
+		}
+	</style>
+
+	<!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+
+	<script src="/static/js/sha256.js"></script>
+	<script src="/static/js/ajax.js"></script> 
+
+</head>
+<body>
+	<ul>
+		   <li><a href="coinbase">Coinbase</a></li>
+		   <li><a href="tokens">Tokens</a></li>
+		   <li><a href="distributed">Distributed</a></li>
+		   <li><a class="active" href="blockchain">Blockchain</a></li>
+		   <li><a href="blockinfo">Block</a></li>
+	 	   <li><a href="hash">Hash</a></li>
+<li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 
+	</ul>
+	<div class="container" id="vuemain">
+		<h1 style="margin-left: 20px;margin-top: 30px; font-weight: normal;">Blockchain</h1>
+		<div style="overflow-x: scroll">
+			<div style="width: 100000000px">
+				<!-- 第一个cell -->
+				<div class="cell"  >
+					<div class="bg" id="div_a">
+						<form>
+							<div class="col">
+								<label>Block:</label>
+								<div style="float: left;">
+									<!-- blockheight b1-->
+									<span>#</span><input type="" name="" style="height:33px;width: 336px" value="1" id="b1">
+								</div>
+							</div>		
+
+							<div  class="col">
+								<label style="float: left;">Nonce:</label>
+								<div style="float: left;">
+									<!-- nonce1 n1-->
+									<input type="text" value="11316" id="n1">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Data:</label>
+								<div style="float: left;">
+									<!-- data1 are1-->
+									<textarea  id="are1" value="">
+										
+									</textarea>
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Prev:</label>
+								<div style="float: left;">
+									<!-- prev1 pre1-->
+									<input style="background-color:lightgrey" type="text" 
+									value="0000000000000000000000000000000000000000000000000000000000000000"  
+									readonly  id="pre1">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Hash:</label>
+								<div style="float: left;">
+									<input style="background-color:lightgrey" type="text" 
+									value="000015783b764259d382017d91a36d206d0600e2cbb3567748f46a33fe9297cf" 
+									readonly   id="has1">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;"></label>
+								<div style="float: left;">
+									<!-- btn1 -->
+									<input class="btn" type="button"  value="Mine"  id="btn1">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- 第二个cell -->
+				<div class="cell">
+					<div class="bg" id="div_b">
+						<form>
+							<div class="col">
+								<label>Block:</label>
+								<div style="float: left;">
+										<span>#</span><input type="" name="" style="height:33px;width: 336px" value="2" id="b2">
+								</div>
+							</div>
+							
+							<div  class="col">
+								<label style="float: left;">Nonce:</label>
+								<div style="float: left;">
+										<input type="text" value="35230" id="n2">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Data:</label>
+								<div style="float: left;">
+									<textarea id="are2">
+										
+									</textarea>
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Prev:</label>
+								<div style="float: left;">
+										<input style="background-color:lightgrey" type="text" 
+										value="000015783b764259d382017d91a36d206d0600e2cbb3567748f46a33fe9297cf"  
+										readonly  id="pre2">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;">Hash:</label>
+								<div style="float: left;">
+										<input style="background-color:lightgrey" type="text" 
+										value="000012fa9b916eb9078f8d98a7864e697ae83ed54f5146bd84452cdafd043c19" 
+										readonly   id="has2">
+								</div>
+							</div>
+
+							<div  class="col">
+								<label style="float: left;"></label>
+								<div style="float: left;">
+										<input class="btn" type="button"  value="Mine"  id="btn2">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- 第三个cell -->
+				<div class="cell">
+						<div class="bg" id="div_c">
+							<form>
+								<div class="col">
+									<label>Block:</label>
+									<div style="float: left;">
+											<span>#</span><input type="" name="" style="height:33px;width: 336px" value="3" id="b3">
+									</div>
+								</div>
+								
+								<div  class="col">
+									<label style="float: left;">Nonce:</label>
+									<div style="float: left;">
+											<input type="text" value="12937" id="n3">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Data:</label>
+									<div style="float: left;">
+										<textarea id="are3">
+											
+										</textarea>
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Prev:</label>
+									<div style="float: left;">
+											<input style="background-color:lightgrey" type="text" 
+											value="000012fa9b916eb9078f8d98a7864e697ae83ed54f5146bd84452cdafd043c19"  
+											readonly  id="pre3">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Hash:</label>
+									<div style="float: left;">
+											<input style="background-color:lightgrey" type="text" 
+											value="0000b9015ce2a08b61216ba5a0778545bf4ddd7ceb7bbd85dd8062b29a9140bf" 
+											readonly   id="has3">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;"></label>
+									<div style="float: left;">
+											<input class="btn" type="button"  value="Mine"  id="btn3">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				<!-- 第四个cell -->
+				<div class="cell"  >
+						<div class="bg" id="div_d">
+							<form>
+								<div class="col">
+									<label>Block:</label>
+									<div style="float: left;">
+										<!-- blockheight b1-->
+										<span>#</span><input type="" name="" style="height:33px;width: 336px" value="4" id="b4">
+									</div>
+								</div>		
+	
+								<div  class="col">
+									<label style="float: left;">Nonce:</label>
+									<div style="float: left;">
+										<!-- nonce1 n1-->
+										<input type="text" value="35990" id="n4">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Data:</label>
+									<div style="float: left;">
+										<!-- data1 are1-->
+										<textarea  id="are4" value="">
+											
+										</textarea>
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Prev:</label>
+									<div style="float: left;">
+										<!-- prev1 pre1-->
+										<input style="background-color:lightgrey" type="text" 
+										value="0000b9015ce2a08b61216ba5a0778545bf4ddd7ceb7bbd85dd8062b29a9140bf"  
+										readonly  id="pre4">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Hash:</label>
+									<div style="float: left;">
+										<input style="background-color:lightgrey" type="text" 
+										value="0000ae8bbc96cf89c68be6e10a865cc47c6c48a9ebec3c6cad729646cefaef83" 
+										readonly   id="has4">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;"></label>
+									<div style="float: left;">
+										<!-- btn1 -->
+										<input class="btn" type="button"  value="Mine"  id="btn4">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				<!-- 第五个cell -->
+				<div class="cell"  >
+						<div class="bg" id="div_e">
+							<form>
+								<div class="col">
+									<label>Block:</label>
+									<div style="float: left;">
+										<!-- blockheight b1-->
+										<span>#</span><input type="" name="" style="height:33px;width: 336px" value="5" id="b5">
+									</div>
+								</div>		
+	
+								<div  class="col">
+									<label style="float: left;">Nonce:</label>
+									<div style="float: left;">
+										<!-- nonce1 n1-->
+										<input type="text" value="56265" id="n5">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Data:</label>
+									<div style="float: left;">
+										<!-- data1 are1-->
+										<textarea  id="are5" value="">
+											
+										</textarea>
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Prev:</label>
+									<div style="float: left;">
+										<!-- prev1 pre1-->
+										<input style="background-color:lightgrey" type="text" 
+										value="0000ae8bbc96cf89c68be6e10a865cc47c6c48a9ebec3c6cad729646cefaef83"  
+										readonly  id="pre5">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;">Hash:</label>
+									<div style="float: left;">
+										<input style="background-color:lightgrey" type="text" 
+										value="0000e4b9052fd8aae92a8afda42e2ea0f17972ea67cead67352e74dd6f7d217c" 
+										readonly   id="has5">
+									</div>
+								</div>
+	
+								<div  class="col">
+									<label style="float: left;"></label>
+									<div style="float: left;">
+										<!-- btn1 -->
+										<input class="btn" type="button"  value="Mine"  id="btn5">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var lisenlin_switch=true;
+		window.onload=function(){
+			document.getElementById("div_a").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_b").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_c").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_d").style.backgroundColor="rgb(223,240,216)"
+			document.getElementById("div_e").style.backgroundColor="rgb(223,240,216)"
+		}
+		function calhash(flag){
+			if(flag == 1){
+			var bh=document.getElementById("b1").value
+			var nc=document.getElementById("n1").value
+			var da=document.getElementById("are1").value
+			var pr=document.getElementById("pre1").value
+			document.getElementById("has1").value=sha256_digest(bh+nc+da+pr)
+			document.getElementById("pre2").value=document.getElementById("has1").value
+			calhash(2)
+			document.getElementById("div_a").style.backgroundColor="rgb(250,220,220)"
+			}
+			else if(flag == 2){
+			var bh=document.getElementById("b2").value
+			var nc=document.getElementById("n2").value
+			var da=document.getElementById("are2").value
+			var pr=document.getElementById("pre2").value
+			document.getElementById("has2").value=sha256_digest(bh+nc+da+pr)
+			document.getElementById("pre3").value=document.getElementById("has2").value
+			calhash(3)
+			document.getElementById("div_b").style.backgroundColor="rgb(250,220,220)"
+			}
+			else if(flag == 3){
+			var bh=document.getElementById("b3").value
+			var nc=document.getElementById("n3").value
+			var da=document.getElementById("are3").value
+			var pr=document.getElementById("pre3").value
+			document.getElementById("has3").value=sha256_digest(bh+nc+da+pr)
+			document.getElementById("pre4").value=document.getElementById("has3").value
+			calhash(4)
+			document.getElementById("div_c").style.backgroundColor="rgb(250,220,220)"
+			}
+			else if(flag == 4){
+			var bh=document.getElementById("b4").value
+			var nc=document.getElementById("n4").value
+			var da=document.getElementById("are4").value
+			var pr=document.getElementById("pre4").value
+			document.getElementById("has4").value=sha256_digest(bh+nc+da+pr)
+			document.getElementById("pre5").value=document.getElementById("has4").value
+			calhash(5)
+			document.getElementById("div_d").style.backgroundColor="rgb(250,220,220)"
+			}
+			else if(flag == 5){
+			var bh=document.getElementById("b5").value
+			var nc=document.getElementById("n5").value
+			var da=document.getElementById("are5").value
+			var pr=document.getElementById("pre5").value
+			document.getElementById("has5").value=sha256_digest(bh+nc+da+pr)
+			document.getElementById("div_e").style.backgroundColor="rgb(250,220,220)"
+			}
+		}
+		// function check(){
+		// 	if(document.getElementById("b1").value!="1" || document.getElementById("n1").value!="11316" || document.getElementById("are1").value!=""){
+		// 		document.getElementById("div_a").style.backgroundColor="rgb(250,220,220)"
+		// 		return false
+		// 	}
+		// 	return true
+		// }
+			// if(lisenlin_switch == true){
+			// 	if(document.getElementById("b1").value!="1" ){
+			// 		calhash()
+			// 	}
+			// 	var flag=check()
+			// 	if(flag== true){
+			// 		document.getElementById("div_a").style.backgroundColor="rgb(223,240,216)"
+			// 	}
+			// }
+		// var handle=window.setInterval(function(){	
+		// 	calhash(2)		
+		// 	document.getElementById("has2").value=document.getElementById("pre2").value
+		// },100)
+		document.getElementById("b1").addEventListener("input",function(){
+			calhash(1)
+		})
+		document.getElementById("n1").addEventListener("input",function(){
+			calhash(1)
+		})
+		document.getElementById("are1").addEventListener("input",function(){
+			calhash(1)
+		})
+		document.getElementById("btn1").onclick=function(){
+			var bh=document.getElementById("b1").value
+			var da=document.getElementById("are1").value
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/blockchain',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("n1").value=data.nonce
+				document.getElementById("has1").value=data.hashdata
+				document.getElementById("pre2").value=document.getElementById("has1").value
+				calhash(2)
+				document.getElementById("div_a").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		
+		document.getElementById("b2").addEventListener("input",function(){
+			calhash(2)
+		})
+		document.getElementById("n2").addEventListener("input",function(){
+			calhash(2)
+		})
+		document.getElementById("are2").addEventListener("input",function(){
+			calhash(2)
+		})
+		// document.getElementById("pre2").addEventListener("input",function(){
+		// 	calhash(2)
+		// })
+		document.getElementById("btn2").onclick=function(){
+			var bh=document.getElementById("b2").value
+			//var nc=document.getElementById("n1").value
+			var da=document.getElementById("are2").value
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/blockchain',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("n2").value=data.nonce
+				document.getElementById("has2").value=data.hashdata
+				document.getElementById("pre3").value=document.getElementById("has2").value
+				calhash(3)
+				document.getElementById("div_b").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+
+		document.getElementById("b3").addEventListener("input",function(){
+			calhash(3)
+		})
+		document.getElementById("n3").addEventListener("input",function(){
+			calhash(3)
+		})
+		document.getElementById("are3").addEventListener("input",function(){
+			calhash(3)
+		})
+		document.getElementById("btn3").onclick=function(){
+			var bh=document.getElementById("b3").value
+			//var nc=document.getElementById("n1").value
+			var da=document.getElementById("are3").value
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/blockchain',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("n3").value=data.nonce
+				document.getElementById("has3").value=data.hashdata
+				document.getElementById("pre4").value=document.getElementById("has3").value
+				calhash(4)
+				document.getElementById("div_c").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+
+		document.getElementById("b4").addEventListener("input",function(){
+			calhash(4)
+		})
+		document.getElementById("n4").addEventListener("input",function(){
+			calhash(4)
+		})
+		document.getElementById("are4").addEventListener("input",function(){
+			calhash(4)
+		})
+		document.getElementById("btn4").onclick=function(){
+			var bh=document.getElementById("b4").value
+			//var nc=document.getElementById("n1").value
+			var da=document.getElementById("are4").value
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/blockchain',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("n4").value=data.nonce
+				document.getElementById("has4").value=data.hashdata
+				document.getElementById("pre5").value=document.getElementById("has4").value
+				calhash(5)
+				document.getElementById("div_d").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+		document.getElementById("b5").addEventListener("input",function(){
+			calhash(5)
+		})
+		document.getElementById("n5").addEventListener("input",function(){
+			calhash(5)
+		})
+		document.getElementById("are5").addEventListener("input",function(){
+			calhash(5)
+		})
+		document.getElementById("btn5").onclick=function(){
+			var bh=document.getElementById("b5").value
+			//var nc=document.getElementById("n1").value
+			var da=document.getElementById("are5").value
+			var obj={
+						Bl:bh,
+						Da:da		    		
+		    			}
+				ajaxpost('/blockchain',obj,function(jsonvalue){
+				var data = eval('(' + jsonvalue + ')');
+				document.getElementById("n5").value=data.nonce
+				document.getElementById("has5").value=data.hashdata
+				document.getElementById("div_e").style.backgroundColor="rgb(223,240,216)"
+				})
+		}
+	</script>
+</body>
+</html>

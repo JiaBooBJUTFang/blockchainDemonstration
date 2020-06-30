@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>    
+    <style>
+    .dir {
+	position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.dir li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;;
+    text-decoration: none;
+}
+.active{
+    background-color: #111;
+}
+    .h1class{
+        margin-top: 130px;
+        margin-left: 350px;
+    }
+    .container{
+        padding: 10px;
+        width: 650px;
+        /* margin:0px auto; */
+    }
+    div span{
+			padding: 9px 12px;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            float: left;
+		}
+    div input{
+			width: 280px;
+			height: 30px;
+			border: 1px solid #ccc;
+			border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            float: left;
+           
+        }
+    .margin_01{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 45px;
+    }
+    .labsty{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+    }
+    .btn{
+            height: 34px;
+            width: 978px;
+			color: white;
+			background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+			border-radius: 4px;
+        }
+    .colorlightblue{
+        background-color:lightblue;
+    }
+    .colorlightred{
+        background-color:rgb(248, 206, 212);
+    }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="/static/css/layui-v2.4.5/layui/layui.all.js"></script>
+    <script src="/static/js/ajax.js"></script>
+    <link href="/static/css/layui-v2.4.5/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <!-- <script>
+        $(document).ready(function(){
+            var element = layui.element;
+            element.render();
+        })
+    </script> -->
+</head>
+<body>
+        <ul class="dir"> 
+                <li><a href="Blockchainsign.html">Blockchain</a></li>
+                <li><a class="active" href="transaction.html">Transaction</a></li>
+                <li><a href="signature.html">Signatures</a></li>
+                <li><a href="keys.html">Keys</a></li>
+                <li style="float: left;"><a href="chaindemo">Blockchain Demo</a></li> 		
+        </ul>
+    <div class="container" >
+        <h1 class="h1class">Transaction</h1>
+        <div class="layui-tab layui-tab-card" style="width:1000px;height:350px;margin-top:25px;margin-left:350px;">
+            
+            <ul class="layui-tab-title" style="margin-bottom:0px;">
+                <li class="layui-this">Sign</li>
+                <li >Verify</li>
+            </ul>
+        <div class="layui-tab-content" style="height: 310px; padding: 0px;">
+            <div class="layui-tab-item layui-show" style="height:310px;margin:0px;padding:0px;">
+                    <label class="labsty">Message</label>                           
+                <div class="margin_01">
+                    <span>$</span>
+                    <input  type="text" name=""  value="20.00" id="money">
+                    <span>From</span>
+                    <input type="" name="" value="04896010baa9bdc8a958f181a4e7c49c5080d6d66e4a0e0ab8031d34c6185892a4d1229a5e9a0a27fdeea369ddf4d68edda0800b" id="from">
+                    <span>-></span>
+                    <input type="" name=""  value="04cc955bf8e359cc7ebbb66f4c2dc616a93e8ba08e93d27996e20299ba92cba9cbd73c2ff46ed27a3727ba09486ba32b5ac35dd20c0adec020536996ca4d9f3d74" id="to">
+                </div>
+                <label class="labsty">Private Key</label>
+                <div>
+                    <input style=" width: 978px;margin-top: 10px;" type="text" name=""  id="pri_text">
+                </div>
+                <div>
+                    <input class="btn" style="margin-top:20px;" type="button" value="sign" id="bt1">
+                </div>
+                <div>
+                    <input style=" width: 978px;margin-top: 20px; background-color: lightgray;" readonly type="" id="sign_text1">
+                </div>               
+            </div>   
+            <div class="layui-tab-item" style="height: 310px; margin-top:0px;" id="div2">
+                    <label class="labsty">Message</label>                           
+                    <div class="margin_01">
+                        <span>$</span>
+                        <input  type="text" name=""  id="money2" value="">
+                        <span>From</span>
+                        <input type="" name="" id="from2">
+                        <span>-></span>
+                        <input type="" name=""  id="to2">
+                    </div>
+                    <label class="labsty">Signature</label>
+                    <div>
+                        <input style=" width: 978px;margin-top: 10px;" type="" id="sign_text2">
+                    </div>
+                    <div>
+                        <input class="btn" style="margin-top:20px;" type="button" value="verify" id="bnt2">
+                    </div>                   
+            </div>
+        </div>
+        </div>
+    </div>
+    <script>
+    window.onload=function(){
+            // var Fromadd="04896010baa9bdc8a958f181a4e7c49c5080d6d66e4a0e0ab8031d34c6185892a4d1229a5e9a0a27fdeea369ddf4d68edda0800b"
+            // var Toadd="04cc955bf8e359cc7ebbb66f4c2dc616a93e8ba08e93d27996e20299ba92cba9cbd73c2ff46ed27a3727ba09486ba32b5ac35dd20c0adec020536996ca4d9f3d74"
+            // document.getElementById("from").value=Fromadd
+            // document.getElementById("to").value=Toadd
+            //Todo getprikey
+            getkey()
+            }
+            //--------------------------------------------
+			function getkey(){      
+                var req={
+                    Reqid:0
+                }                     
+                ajaxpost('/transaction',req,function(jsonvalue){
+                    var data = eval('(' + jsonvalue + ')');
+                    document.getElementById("pri_text").value=data.prikey;
+                })
+            }
+            function postmydata(){
+                var money=document.getElementById("money").value
+                var from=document.getElementById("from").value
+                var to=document.getElementById("to").value
+                var req={
+                        Reqid:1,
+                        Message:""+money+from+to                       
+                    }
+                    ajaxpost('/transaction',req,function(jsonvalue){
+                    var data = eval('(' + jsonvalue + ')');
+                    document.getElementById("sign_text1").value=data.megsign
+                    document.getElementById("sign_text2").value=data.megsign
+                })
+            }
+            function verifymsg(){
+                var money=document.getElementById("money2").value
+                var from=document.getElementById("from2").value
+                var to=document.getElementById("to2").value
+                var sign=document.getElementById("sign_text2").value
+                var req={
+                        Reqid:2,
+                        Message:""+money+from+to,
+                        Signature:sign                      
+                    }
+                ajaxpost('/transaction',req,function(jsonvalue){
+                    //alert(jsonvalue)
+                    var data = eval('(' + jsonvalue + ')');
+                    var res=data.result
+                    if(res == true){
+                        document.getElementById("div2").style.backgroundColor="rgb(223,240,216)"
+                    }
+                    else{
+                        document.getElementById("div2").style.backgroundColor="rgb(248, 206, 212)";
+                    }
+                })
+            }
+            document.getElementById("money2").value= document.getElementById("money").value
+            document.getElementById("from2").value= document.getElementById("from").value
+            document.getElementById("to2").value= document.getElementById("to").value
+            document.getElementById("bt1").addEventListener("click",postmydata)
+            document.getElementById("money").addEventListener("input",function(){
+                document.getElementById("money2").value= document.getElementById("money").value
+            })
+            document.getElementById("money2").addEventListener("input",function(){
+                document.getElementById("money").value= document.getElementById("money2").value
+                document.getElementById("div2").style.backgroundColor="white"
+            })
+            document.getElementById("bnt2").addEventListener("click",verifymsg)
+    </script>
+</body>
+</html>
